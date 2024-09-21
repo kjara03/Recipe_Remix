@@ -1,0 +1,2 @@
+# Recipe_Remix
+Recipe Remix is a full-stack application that helps users discover meals they can prepare based on the ingredients they already have. Users simply input their available ingredients, and the app generates tailored recipe suggestions, complete with instructional videos, images, and links. It also identifies missing ingredients, estimates their cost, and provides nutritional information to aid in healthy meal planning.
