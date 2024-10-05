@@ -1,0 +1,21 @@
+/* Login/Sign Up Button */
+.btn-custom {
+  background-color: #ff6699;
+  color: white;
+  border-radius: 50px; /* Rounded edges */
+  padding: 0.5rem 1.5rem;
+  border: none;
+  font-size: 1.2rem; /* Increased size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #ff3366;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .btn-custom {
+    margin-bottom: 1rem;
+  }
+}

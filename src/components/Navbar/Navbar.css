@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
 /* Navbar General Styling */
 .navbar {
@@ -9,7 +9,7 @@
 }
 
 .navbar-brand {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 2.5rem; /* Increased size */
   color: #ff6699 !important;
 }
@@ -20,34 +20,28 @@
 
 /* Navbar Links */
 .nav-link {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
-  color: #333; 
+  color: #333;
   margin: 0 1.5rem;
   padding: 0.5rem 1rem;
   transition: color 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px; 
+  letter-spacing: 1px;
 }
 
 .nav-link:hover {
   color: #ff6699 !important; /* Change text color on hover */
 }
 
-/* Login/Sign Up Button */
-.btn-custom {
-  background-color: #ff6699;
-  color: white;
-  border-radius: 50px; /* Rounded edges */
-  padding: 0.5rem 1.5rem;
-  border: none;
-  font-size: 1.2rem; /* Increased size */
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.8rem; /* Further adjusted size for smaller screens */
+  }
 
-.btn-custom:hover {
-  background-color: #ff3366;
-  transform: scale(1.05);
+  .navbar-nav {
+    text-align: center;
+  }
 }
 
 /* Responsive Styling */
@@ -61,19 +55,5 @@
 
   .navbar-brand {
     font-size: 2.2rem; /* Adjusted size for medium screens */
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 1.8rem; /* Further adjusted size for smaller screens */
-  }
-
-  .navbar-nav {
-    text-align: center;
-  }
-
-  .btn-custom {
-    margin-bottom: 1rem;
   }
 }
