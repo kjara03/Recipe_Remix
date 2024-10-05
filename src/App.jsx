@@ -1,12 +1,21 @@
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Navbar />
+    <div className="App">
+      <Router>
+        <Navbar></Navbar>
+        <Routes>
+          <Route path="/"></Route>
+          <Route path="/signup"></Route>
+          <Route path="/login"></Route>
+          <Route path="/account"></Route>
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

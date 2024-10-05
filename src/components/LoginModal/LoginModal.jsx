@@ -1,17 +1,18 @@
-import "./Authentication.css";
-const Authentication = () => {
+import "./LoginModal.css";
+
+const LoginModal = () => {
   return (
     <div
       className="modal fade"
-      id="loginModal"
+      id="login-modal"
       tabIndex="-1"
-      aria-labelledby="loginModalLabel"
+      aria-labelledby="login-modal-label"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="loginModalLabel">
+            <h5 className="modal-title" id="login-modal-label">
               Login or Sign Up
             </h5>
             <button
@@ -24,7 +25,7 @@ const Authentication = () => {
           <div className="modal-body">
             <p>Login or sign up to access your favorite recipes!</p>
             <form>
-              <div className="mb-3">
+              <div className="mb-2">
                 <label htmlFor="email" className="form-label">
                   Email address
                 </label>
@@ -33,6 +34,7 @@ const Authentication = () => {
                   className="form-control"
                   id="email"
                   placeholder="Enter your email"
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -44,9 +46,10 @@ const Authentication = () => {
                   className="form-control"
                   id="password"
                   placeholder="Enter your password"
+                  required
                 />
               </div>
-              <button type="submit" className="btn btn-custom">
+              <button type="submit" className="btn login-button">
                 Login
               </button>
             </form>
@@ -57,4 +60,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default LoginModal;
