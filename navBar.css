@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+/* Navbar General Styling */
+.navbar {
+  background-color: #f0f0f5;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5rem; /* Increased size */
+  color: #ff6699 !important;
+}
+
+.navbar-brand:hover {
+  color: #ff3366 !important;
+}
+
+/* Navbar Links */
+.nav-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: #333; 
+  margin: 0 1.5rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px; 
+}
+
+.nav-link:hover {
+  color: #ff6699 !important; /* Change text color on hover */
+}
+
+/* Login/Sign Up Button */
+.btn-custom {
+  background-color: #ff6699;
+  color: white;
+  border-radius: 50px; /* Rounded edges */
+  padding: 0.5rem 1.5rem;
+  border: none;
+  font-size: 1.2rem; /* Increased size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #ff3366;
+  transform: scale(1.05);
+}
+
+/* Responsive Styling */
+@media (max-width: 992px) {
+  .navbar-nav .nav-link {
+    font-size: 1.4rem; /* Slightly reduced size for medium screens */
+    margin: 0.5rem 0;
+    width: 100%; /* Full-width on mobile */
+    text-align: center; /* Center text on mobile */
+  }
+
+  .navbar-brand {
+    font-size: 2.2rem; /* Adjusted size for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.8rem; /* Further adjusted size for smaller screens */
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .btn-custom {
+    margin-bottom: 1rem;
+  }
+}
