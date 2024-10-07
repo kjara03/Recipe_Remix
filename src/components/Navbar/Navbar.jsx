@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./Navbar.css";
 import LoginModal from "../LoginModal/LoginModal";
 import LoginButton from "../LoginButton/LoginButton";
@@ -5,6 +6,13 @@ import SignupButton from "../SignupButton/SignupButton";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
+
+  // Function to flip the expanded state of the navbar
+  const toggleNavbar = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -13,15 +21,16 @@ const Navbar = () => {
             Recipe Remix
           </Link>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler p-1"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbar-links"
             aria-controls="navbar-links"
-            aria-expanded="false"
+            aria-expanded={isExpanded}
             aria-label="Toggle navigation"
+            onClick={toggleNavbar}
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className={`icon bi ${isExpanded ? "bi-x" : "bi-list"}`}></i>
           </button>
           <div
             className="collapse navbar-collapse justify-content-end"
