@@ -1,9 +1,10 @@
 import { useState } from "react";
-import "./LoginModal.css";
+import "./SignupForm.css";
 
-const LoginModal = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   // Function to update email input
   function UpdateEmail(event) {
@@ -15,12 +16,18 @@ const LoginModal = () => {
     setPassword(event.target.value);
   }
 
-  // Function to valid the login details
-  function ValidateLogin(event) {
+  // Function to update username input
+  function UpdateUsername(event) {
+    setUsername(event.target.value);
+  }
+
+  // Function to valid the form details
+  function ValidateForm(event) {
     event.preventDefault();
     console.log("Checking sign up details.");
     ValidateEmail();
     ValidatePassword();
+    ValidateUsername();
   }
 
   // Function to make sure the email is valid
@@ -33,19 +40,24 @@ const LoginModal = () => {
     // Do this
   }
 
+  // Function to ensure username is appropriate
+  function ValidateUsername() {
+    // Do this
+  }
+
   return (
     <div
       className="modal fade"
-      id="login-modal"
+      id="signup-modal"
       tabIndex="-1"
-      aria-labelledby="login-modal-label"
+      aria-labelledby="signup-modal-label"
       aria-hidden="true"
     >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="login-modal-label">
-              Login or Sign Up
+              Sign Up
             </h5>
             <button
               type="button"
@@ -55,38 +67,52 @@ const LoginModal = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <p>Login or sign up to access your favorite recipes!</p>
-            <form onSubmit={ValidateLogin}>
+            <p>Sign up to access your favorite recipes!</p>
+            <form onSubmit={ValidateForm}>
               <div className="mb-2">
-                <label htmlFor="login-email" className="form-label">
+                <label htmlFor="signup-email" className="form-label">
                   Email address
                 </label>
                 <input
                   type="email"
                   className="form-control"
-                  id="login-email"
+                  id="signup-email"
                   placeholder="Enter your email"
                   onChange={UpdateEmail}
                   value={email}
                   required
                 />
               </div>
-              <div className="mb-3">
-                <label htmlFor="login-password" className="form-label">
+              <div className="mb-2">
+                <label htmlFor="signup-password" className="form-label">
                   Password
                 </label>
                 <input
                   type="password"
                   className="form-control"
-                  id="login-password"
+                  id="signup-password"
                   placeholder="Enter your password"
                   onChange={UpdatePassword}
                   value={password}
                   required
                 />
               </div>
-              <button type="submit" className="btn login-button">
-                Login
+              <div className="mb-3">
+                <label htmlFor="username" className="form-label">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  placeholder="Enter your username"
+                  onChange={UpdateUsername}
+                  value={username}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn signup-button">
+                Sign up
               </button>
             </form>
           </div>
@@ -96,4 +122,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default SignupForm;
