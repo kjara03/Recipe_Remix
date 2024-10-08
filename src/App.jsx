@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/Homepage/Homepage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Search_bar from "./components/SearchBar/search_bar";
 
 const App = () => {
   return (
