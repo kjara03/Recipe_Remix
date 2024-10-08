@@ -1,5 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./pages/Homepage/Homepage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -8,10 +10,12 @@ const App = () => {
       <Router>
         <Navbar></Navbar>
         <Routes>
-          <Route path="/"></Route>
-          <Route path="/signup"></Route>
-          <Route path="/login"></Route>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/recipes"></Route>
+          <Route path="/favorites"></Route>
           <Route path="/account"></Route>
+          <Route path="/about"></Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </div>

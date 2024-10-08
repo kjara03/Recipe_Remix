@@ -1,6 +1,38 @@
+import { useState } from "react";
 import "./LoginModal.css";
 
 const LoginModal = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Function to update email input
+  function UpdateEmail(event) {
+    setEmail(event.target.value);
+  }
+
+  // Function to update password input
+  function UpdatePassword(event) {
+    setPassword(event.target.value);
+  }
+
+  // Function to valid the login details
+  function ValidateLogin(event) {
+    event.preventDefault();
+    console.log("Checking sign up details.");
+    ValidateEmail();
+    ValidatePassword();
+  }
+
+  // Function to make sure the email is valid
+  function ValidateEmail() {
+    // Do this
+  }
+
+  // Function to ensure password is strong
+  function ValidatePassword() {
+    // Do this
+  }
+
   return (
     <div
       className="modal fade"
@@ -24,28 +56,32 @@ const LoginModal = () => {
           </div>
           <div className="modal-body">
             <p>Login or sign up to access your favorite recipes!</p>
-            <form>
+            <form onSubmit={ValidateLogin}>
               <div className="mb-2">
-                <label htmlFor="email" className="form-label">
+                <label htmlFor="login-email" className="form-label">
                   Email address
                 </label>
                 <input
                   type="email"
                   className="form-control"
-                  id="email"
+                  id="login-email"
                   placeholder="Enter your email"
+                  onChange={UpdateEmail}
+                  value={email}
                   required
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="password" className="form-label">
+                <label htmlFor="login-password" className="form-label">
                   Password
                 </label>
                 <input
                   type="password"
                   className="form-control"
-                  id="password"
+                  id="login-password"
                   placeholder="Enter your password"
+                  onChange={UpdatePassword}
+                  value={password}
                   required
                 />
               </div>

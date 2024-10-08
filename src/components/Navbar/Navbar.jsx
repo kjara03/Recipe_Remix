@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Navbar.css";
 import LoginModal from "../LoginModal/LoginModal";
+import SignupForm from "../SignupForm/SignupForm";
 import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
 import { Link } from "react-router-dom";
@@ -55,6 +56,7 @@ const Navbar = () => {
         </div>
       </nav>
       <LoginModal />
+      <SignupForm />
     </>
   );
 };
