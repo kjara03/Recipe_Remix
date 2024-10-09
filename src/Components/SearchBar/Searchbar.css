@@ -1,0 +1,18 @@
+.search-bar {
+  width: 90%;
+}
+
+.search-button {
+  border-radius: 50px;
+  margin-left: 3em;
+}
+
+.search-label {
+  transform: translateY(17.5%);
+}
+
+#search-input {
+  background-color: aliceblue;
+  border-radius: 50px;
+  height: 3em;
+}

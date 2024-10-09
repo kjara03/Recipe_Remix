@@ -1,7 +1,7 @@
 /* Navbar General Styling */
 .navbar {
   background-color: #f0f0f5;
-  padding: 1.5rem;
+  padding: 0.5em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   min-width: 360px;
 }
