@@ -13,7 +13,7 @@ const Searchbar = () => {
   function SearchRecipe() {}
 
   return (
-    <search className="search-bar">
+    <search className="search-bar input-group">
       <form
         onSubmit={SearchRecipe}
         className="form-outline d-flex"
@@ -23,13 +23,11 @@ const Searchbar = () => {
           type="search"
           className="form-control"
           id="search-input"
+          placeholder="Search for recipes"
           value={searchInput}
           onChange={UpdateSearch}
           required
         />
-        <label className="form-label search-label" htmlFor="search-input">
-          Search for recipes
-        </label>
         <button
           type="submit"
           className="btn btn-primary search-button"

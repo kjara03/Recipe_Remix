@@ -7,12 +7,18 @@
   margin-left: 3em;
 }
 
-.search-label {
-  transform: translateY(17.5%);
-}
-
 #search-input {
   background-color: aliceblue;
   border-radius: 50px;
   height: 3em;
+  font-size: 1.2em;
+}
+
+#search-input::placeholder {
+  color: gray;
+  opacity: 1;
+}
+
+#search-input:focus {
+  border: 2px solid black;
 }
