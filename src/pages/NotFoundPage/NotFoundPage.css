@@ -1,9 +1,10 @@
 .not-found-background {
+  width: 100vw;
   height: 100vh;
-  background: url("../../assets/signupbackground.jpg") no-repeat center
-    center/cover;
-  background-position: center;
-  z-index: -1;
+  background: url("../../assets/notfoundbackground.jpg");
+  background-size: cover; /* Cover the entire container */
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-position: center; /* Center the image */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,4 +13,5 @@
 .not-found-card {
   color: black;
   width: 40%;
+  opacity: 90%;
 }
