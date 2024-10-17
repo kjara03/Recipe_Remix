@@ -1,21 +1,31 @@
 import { useState } from "react";
 import "./Searchbar.css";
+import { useNavigate } from "react-router-dom";
 
 const Searchbar = () => {
   const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
 
   // Function to update search input
-  function UpdateSearch(event) {
+  function updateSearch(event) {
     setSearchInput(event.target.value);
   }
 
-  // Function to search for recipes
-  function SearchRecipe() {}
+  // Function to search for recipes by navigating to the search page with the search input
+  function searchRecipe(event) {
+    event.preventDefault();
+    if (searchInput.trim().length > 2) {
+      navigate(`/search/${searchInput.trim()}`);
+    } else {
+      return;
+    }
+    setSearchInput("");
+  }
 
   return (
     <search className="search-bar input-group">
       <form
-        onSubmit={SearchRecipe}
+        onSubmit={(event) => searchRecipe(event)}
         className="form-outline d-flex"
         data-mdb-input-init
       >
@@ -24,8 +34,9 @@ const Searchbar = () => {
           className="form-control"
           id="search-input"
           placeholder="Search for recipes"
+          minLength="3"
           value={searchInput}
-          onChange={UpdateSearch}
+          onChange={updateSearch}
           required
         />
         <button

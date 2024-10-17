@@ -17,7 +17,7 @@ const IngredientMenu = () => {
   };
 
   // Function to fetch possible options available
-  const FetchOptions = () => {
+  const fetchOptions = () => {
     setOptions([]);
   };
 
