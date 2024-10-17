@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./GridLayout.css";
 import RecipeCard from "../RecipeCard/RecipeCard";
+import IngredientMenu from "../IngredientMenu/IngredientMenu";
 import pic from "../../assets/cakePic2.jpg";
 import pic2 from "../../assets/foodmainpic.jpg";
 
@@ -56,6 +57,9 @@ const GridLayout = () => {
 
   return (
     <div className="container">
+      <div className="mt-3 mb-3">
+        <IngredientMenu />
+      </div>
       <div className="row">
         {recipes.map((card, id) => (
           // Adjust to different screen size

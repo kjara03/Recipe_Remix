@@ -1,7 +1,11 @@
 import GridLayout from "../../components/GridLayout/GridLayout";
 
 const RecipePage = () => {
-  return <GridLayout />;
+  return (
+    <div>
+      <GridLayout />
+    </div>
+  );
 };
 
 export default RecipePage;
