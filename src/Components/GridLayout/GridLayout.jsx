@@ -1,29 +1,71 @@
-import React, { useState } from "react";
-import RecipeCard from "./RecipeCard"; 
+import { useState, useEffect } from "react";
 import "./GridLayout.css";
+import RecipeCard from "../RecipeCard/RecipeCard";
+import pic from "../../assets/cakePic2.jpg";
+import pic2 from "../../assets/foodmainpic.jpg";
 
 const GridLayout = () => {
-        //Sample Data for cards
-    const [cards] = useState([      // need to use APIs instead (later on)
-        { id: 1, imgSrc: "../../assets/cakePic2.jpg" },
-        { id: 2, imgSrc: "" },
-        { id: 3, imgSrc: "" },
-        { id: 4, imgSrc: "" },
-        
-    ]);
+  const [recipes, setRecipes] = useState([
+    {
+      recipeImg: pic,
+      imgDescription: "Cake",
+      recipe: "Cake",
+      recipeDescription: "This is a cake.",
+      recipeLink: "www.cake.com",
+    },
+    {
+      recipeImg: pic2,
+      imgDescription: "Cake",
+      recipe: "Cake",
+      recipeDescription: "This is a cake.",
+      recipeLink: "www.cake.com",
+    },
+    {
+      recipeImg: pic,
+      imgDescription: "Cake",
+      recipe: "Cake",
+      recipeDescription: "This is a cake.",
+      recipeLink: "www.cake.com",
+    },
+    {
+      recipeImg: pic2,
+      imgDescription: "Cake",
+      recipe: "Cake",
+      recipeDescription:
+        "This is a cake.This is a cakThis is a cakThis is a cakThis is a cakThis is a cakThis is a cakThis is a cak.",
+      recipeLink: "www.cake.com",
+    },
+    {
+      recipeImg: pic2,
+      imgDescription: "Cake",
+      recipe: "Cake",
+      recipeDescription: "This is a cake.",
+      recipeLink: "www.cake.com",
+    },
+  ]);
 
-    return (
-        <div className="container">
-            <div className="row">
-                {cards.map(card => (
-                    //to adjust to different screen size and to render RecipeCard for card data:
-                    <div className="col-md-4 col-sm-6 mb-4" key={card.id}> 
-                        <RecipeCard /> 
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  // Function to fetch recipes
+  function FetchRecipesFromAPI() {
+    setRecipes([]);
+  }
+
+  // Fetch data
+  useEffect(() => {
+    // Get the search parameter and fetch from API
+  }, []);
+
+  return (
+    <div className="container">
+      <div className="row">
+        {recipes.map((card, id) => (
+          // Adjust to different screen size
+          <div className="col-lg-3 col-md-4 col-6 mb-4" key={id}>
+            <RecipeCard {...card} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default GridLayout;

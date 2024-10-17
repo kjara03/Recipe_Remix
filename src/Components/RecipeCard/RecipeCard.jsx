@@ -1,20 +1,34 @@
 import "./RecipeCard.css";
+import PropTypes from "prop-types";
 
-const RecipeCard = () => {
-    return(
-        <>
-            <div className="card">;
-                <img  src="../../assets/cakePic2.jpg" className="card-img-top" alt="Image of Cake"/>
-                <div className="card-body">
-                    <h5 className="card-title">Moist Cake Recipe</h5>
-                    <p className="card-text">
-                        Lorem ipsum odor amet, consectetuer adipiscing elit. Volutpat purus facilisis accumsan inceptos sodales vitae. Risus fames eget feugiat etiam malesuada felis augue. Etiam sit mi elementum amet convallis vivamus.
-                    </p>
-                </div>
-                <a href="#" class="card-link">Click Here to find out this Delicious Recipe</a>
-            </div>      
-        </>
-   );
+const RecipeCard = (props) => {
+  const { recipeImg, imgDescription, recipe, recipeDescription, recipeLink } =
+    props;
+  return (
+    <div className="card border-dark mb-3 recipe-card">
+      <img
+        src={recipeImg}
+        className="card-img-top recipe-image"
+        alt={imgDescription}
+      />
+
+      <div className="card-body">
+        <h5 className="card-title">{recipe}</h5>
+        <p className="card-text">{recipeDescription}</p>
+      </div>
+      <a href={recipeLink} className="card-link recipe-link">
+        Explore Recipe Guide
+      </a>
+    </div>
+  );
 };
 
-export default RecipeCard
+RecipeCard.propTypes = {
+  recipeImg: PropTypes.string.isRequired,
+  imgDescription: PropTypes.string.isRequired,
+  recipe: PropTypes.string.isRequired,
+  recipeDescription: PropTypes.string.isRequired,
+  recipeLink: PropTypes.string.isRequired,
+};
+
+export default RecipeCard;

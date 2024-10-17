@@ -1,0 +1,12 @@
+.recipe-card {
+  height: 100%;
+}
+
+.recipe-link {
+  text-align: center;
+}
+
+.recipe-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
