@@ -2,6 +2,11 @@
   height: 100%;
 }
 
+.recipe-card-body {
+  text-align: center;
+  padding: 1em 0.4em 0em 0.4em;
+}
+
 .recipe-link {
   text-align: center;
 }

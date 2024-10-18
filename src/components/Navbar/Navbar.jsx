@@ -1,22 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Navbar.css";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupForm from "../SignupForm/SignupForm";
 import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const location = useLocation(); // Keep track if there is changes in the routing
-  const [lastLocation, setLastLocation] = useState(location.pathname); // State to track the last route path
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
-
-  useEffect(() => {
-    if (location.pathname !== lastLocation) {
-      setIsExpanded(false); // Collaspe the navbar on route change
-      setLastLocation(location.pathname);
-    }
-  }, [location.pathname, lastLocation]);
 
   // Function to flip the expanded state of the navbar
   const toggleNavbar = () => {
@@ -43,9 +34,7 @@ const Navbar = () => {
             <i className={`icon bi ${isExpanded ? "bi-x" : "bi-list"}`}></i>
           </button>
           <div
-            className={`collapse navbar-collapse justify-content-end ${
-              isExpanded ? "show" : ""
-            }`}
+            className="collapse navbar-collapse justify-content-end"
             id="navbar-links"
           >
             <div className="navbar-nav text-center">

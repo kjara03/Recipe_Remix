@@ -6,30 +6,30 @@ const LoginModal = () => {
   const [password, setPassword] = useState("");
 
   // Function to update email input
-  function UpdateEmail(event) {
+  function updateEmail(event) {
     setEmail(event.target.value);
   }
 
   // Function to update password input
-  function UpdatePassword(event) {
+  function updatePassword(event) {
     setPassword(event.target.value);
   }
 
   // Function to valid the login details
-  function ValidateLogin(event) {
+  function validateLogin(event) {
     event.preventDefault();
     console.log("Checking sign up details.");
-    ValidateEmail();
-    ValidatePassword();
+    validateEmail();
+    validatePassword();
   }
 
   // Function to make sure the email is valid
-  function ValidateEmail() {
+  function validateEmail() {
     // Do this
   }
 
   // Function to ensure password is strong
-  function ValidatePassword() {
+  function validatePassword() {
     // Do this
   }
 
@@ -56,7 +56,7 @@ const LoginModal = () => {
           </div>
           <div className="modal-body">
             <p>Login or sign up to access your favorite recipes!</p>
-            <form onSubmit={ValidateLogin}>
+            <form onSubmit={validateLogin}>
               <div className="mb-2">
                 <label htmlFor="login-email" className="form-label">
                   Email address
@@ -66,7 +66,7 @@ const LoginModal = () => {
                   className="form-control"
                   id="login-email"
                   placeholder="Enter your email"
-                  onChange={UpdateEmail}
+                  onChange={updateEmail}
                   value={email}
                   required
                 />
@@ -80,7 +80,7 @@ const LoginModal = () => {
                   className="form-control"
                   id="login-password"
                   placeholder="Enter your password"
-                  onChange={UpdatePassword}
+                  onChange={updatePassword}
                   value={password}
                   required
                 />

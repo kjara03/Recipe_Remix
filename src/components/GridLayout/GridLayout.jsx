@@ -1,75 +1,32 @@
-import { useState, useEffect } from "react";
 import "./GridLayout.css";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import IngredientMenu from "../IngredientMenu/IngredientMenu";
-import pic from "../../assets/cakePic2.jpg";
-import pic2 from "../../assets/foodmainpic.jpg";
+import PropTypes from "prop-types";
 
-const GridLayout = () => {
-  const [recipes, setRecipes] = useState([
-    {
-      recipeImg: pic,
-      imgDescription: "Cake",
-      recipe: "Cake",
-      recipeDescription: "This is a cake.",
-      recipeLink: "www.cake.com",
-    },
-    {
-      recipeImg: pic2,
-      imgDescription: "Cake",
-      recipe: "Cake",
-      recipeDescription: "This is a cake.",
-      recipeLink: "www.cake.com",
-    },
-    {
-      recipeImg: pic,
-      imgDescription: "Cake",
-      recipe: "Cake",
-      recipeDescription: "This is a cake.",
-      recipeLink: "www.cake.com",
-    },
-    {
-      recipeImg: pic2,
-      imgDescription: "Cake",
-      recipe: "Cake",
-      recipeDescription:
-        "This is a cake.This is a cakThis is a cakThis is a cakThis is a cakThis is a cakThis is a cakThis is a cak.",
-      recipeLink: "www.cake.com",
-    },
-    {
-      recipeImg: pic2,
-      imgDescription: "Cake",
-      recipe: "Cake",
-      recipeDescription: "This is a cake.",
-      recipeLink: "www.cake.com",
-    },
-  ]);
-
-  // Function to fetch recipes
-  function FetchRecipesFromAPI() {
-    setRecipes([]);
-  }
-
-  // Fetch data
-  useEffect(() => {
-    // Get the search parameter and fetch from API
-  }, []);
-
+const GridLayout = ({ recipes }) => {
   return (
-    <div className="container">
-      <div className="mt-3 mb-3">
-        <IngredientMenu />
-      </div>
-      <div className="row">
-        {recipes.map((card, id) => (
-          // Adjust to different screen size
-          <div className="col-lg-3 col-md-4 col-6 mb-4" key={id}>
-            <RecipeCard {...card} />
+    <>
+      {recipes && recipes.length > 0 && (
+        <div className="container">
+          <div className="mt-3 mb-3">
+            <IngredientMenu />
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="row">
+            {recipes.map((card, id) => (
+              // Adjust to different screen size
+              <div className="col-lg-3 col-md-4 col-6 mb-4" key={id}>
+                <RecipeCard {...card} />
+              </div>
+            ))}
+          </div>{" "}
+        </div>
+      )}
+    </>
   );
+};
+
+GridLayout.propTypes = {
+  recipes: PropTypes.array,
 };
 
 export default GridLayout;
