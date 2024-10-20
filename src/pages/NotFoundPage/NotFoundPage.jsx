@@ -10,12 +10,10 @@ const NotFoundPage = () => {
           <p className="card-text">
             Thanks for visiting the site, but the page doesn&apos;t exist.
           </p>
-          <Link to="/" className="card-link">
-            Home
-          </Link>
-          <Link to="/explore" className="card-link">
-            Explore
-          </Link>
+          <div className="not-found-links">
+            <Link to="/">Home</Link>
+            <Link to="/explore">Explore</Link>
+          </div>
         </div>
       </div>
     </div>
