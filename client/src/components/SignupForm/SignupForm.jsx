@@ -7,42 +7,74 @@ const SignupForm = () => {
   const [username, setUsername] = useState("");
 
   // Function to update email input
-  function UpdateEmail(event) {
+  function updateEmail(event) {
     setEmail(event.target.value);
   }
 
   // Function to update password input
-  function UpdatePassword(event) {
+  function updatePassword(event) {
     setPassword(event.target.value);
   }
 
   // Function to update username input
-  function UpdateUsername(event) {
+  function updateUsername(event) {
     setUsername(event.target.value);
   }
 
-  // Function to valid the form details
-  function ValidateForm(event) {
-    event.preventDefault();
-    console.log("Checking sign up details.");
-    ValidateEmail();
-    ValidatePassword();
-    ValidateUsername();
-  }
-
   // Function to make sure the email is valid
-  function ValidateEmail() {
+  function validateEmail() {
     // Do this
+    return true;
   }
 
   // Function to ensure password is strong
-  function ValidatePassword() {
+  function validatePassword() {
     // Do this
+    return true;
   }
 
   // Function to ensure username is appropriate
-  function ValidateUsername() {
+  function validateUsername() {
     // Do this
+    return true;
+  }
+
+  // Function to valid the form details
+  function validateForm() {
+    return validateEmail() && validatePassword() && validateUsername();
+  }
+
+  // Function to create a user
+  async function signup(event) {
+    event.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await fetch("/user", {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            username: username,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        // Check if the response indicates a duplicate (status 409)
+        if (response.status === 409) {
+          console.log("This email is already registered.");
+          return;
+        }
+        const json = await response.json();
+        if (json.error) {
+          console.log("Error details:", json.error.details);
+        } else {
+          console.log("User created successfully:", json);
+        }
+      } catch (error) {
+        console.log("An error occurred:", error.message);
+      }
+    }
   }
 
   return (
@@ -68,7 +100,7 @@ const SignupForm = () => {
           </div>
           <div className="modal-body">
             <p>Sign up to access your favorite recipes!</p>
-            <form onSubmit={ValidateForm}>
+            <form onSubmit={signup}>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">
                   Email address
@@ -78,7 +110,7 @@ const SignupForm = () => {
                   className="form-control"
                   id="signup-email"
                   placeholder="Enter your email"
-                  onChange={UpdateEmail}
+                  onChange={updateEmail}
                   value={email}
                   required
                 />
@@ -92,7 +124,7 @@ const SignupForm = () => {
                   className="form-control"
                   id="signup-password"
                   placeholder="Enter your password"
-                  onChange={UpdatePassword}
+                  onChange={updatePassword}
                   value={password}
                   required
                 />
@@ -106,7 +138,7 @@ const SignupForm = () => {
                   className="form-control"
                   id="username"
                   placeholder="Enter your username"
-                  onChange={UpdateUsername}
+                  onChange={updateUsername}
                   value={username}
                   required
                 />

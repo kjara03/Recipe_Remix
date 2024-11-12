@@ -27,7 +27,6 @@ const SearchPage = () => {
         `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${EDAMAN_ID}&app_key=${EDAMAN_API_KEY}`
       );
       const json = await response.json();
-      console.log(json);
       if (json.count > 0) {
         extractRecipesDetails(json);
       }
@@ -47,6 +46,24 @@ const SearchPage = () => {
       };
     });
     setRecipes(recipesData);
+    addRecipe(recipesData[0]);
+    /*recipesData.forEach((recipe) => {});*/
+  }
+
+  // Function to add recipe data to the backend
+  async function addRecipe(data) {
+    const response = await fetch("http://localhost:3000/recipe", {
+      method: "POST",
+      body: JSON.stringify({
+        id: data.recipeId,
+        name: data.recipe,
+        image: data.recipeImg,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    console.log(response);
   }
 
   return (

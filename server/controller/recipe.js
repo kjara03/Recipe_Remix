@@ -1,29 +1,27 @@
 import supabase from "../db/db.js";
 
 // Create a recipe into the table
-export const createRecipe = async ({ id, name, image }) => {
+export async function createRecipe(id, name, image) {
   try {
-    const recipe = await supabase.from("Recipe").insert([{ id, name, image }]);
-    console.log(recipe);
-    return { status: true, data: recipe };
+    const recipe = await supabase
+      .from("Recipe")
+      .insert({ id: id, name: name, image: image });
+    return { data: recipe };
   } catch (error) {
-    return { status: false, data: error };
+    return { data: error };
   }
-};
+}
 
 // Select the recipe based on id
-export const getRecipeById = async ({ id }) => {
+export async function getRecipeById(id) {
   try {
     const recipe = await supabase
       .from("Recipe")
       .select("*")
       .eq("id", id)
       .single();
-    if (recipe.error) {
-      return { status: false, data: recipe };
-    }
-    return { status: true, data: recipe };
+    return { data: recipe };
   } catch (error) {
-    return { status: false, data: error };
+    return { data: error };
   }
-};
+}

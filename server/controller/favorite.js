@@ -1,7 +1,7 @@
 import supabase from "../db/db.js";
 
 // Create a favorite entry into the table
-export const createFavoriteEntry = async ({ userId, recipeId }) => {
+export async function createFavoriteEntry(userId, recipeId) {
   try {
     const favoriteEntry = await supabase
       .from("Favorite")
@@ -13,10 +13,10 @@ export const createFavoriteEntry = async ({ userId, recipeId }) => {
   } catch (error) {
     return { status: false, data: error };
   }
-};
+}
 
 // Remove the favorite entry based on id
-export const removeFavoriteEntryById = async ({ id }) => {
+export async function removeFavoriteEntryById(id) {
   try {
     const entry = await supabase.from("Favorite").delete().eq("id", id);
     if (entry.erorr) {
@@ -26,10 +26,10 @@ export const removeFavoriteEntryById = async ({ id }) => {
   } catch (error) {
     return { status: false, data: error };
   }
-};
+}
 
 // Retrieve favorite recipes of a user
-export const getFavoritesByUser = async ({ userId }) => {
+export async function getFavoritesByUser(userId) {
   try {
     const favoriteEntries = await supabase
       .from("Favorite")
@@ -42,10 +42,10 @@ export const getFavoritesByUser = async ({ userId }) => {
   } catch (error) {
     return { status: false, data: error };
   }
-};
+}
 
 // Retrieve number of counts a recipe was favorited by users
-export const getFavoriteCount = async ({ recipeId }) => {
+export async function getFavoriteCount(recipeId) {
   try {
     const entryCount = await supabase
       .from("Favorite")
@@ -58,4 +58,4 @@ export const getFavoriteCount = async ({ recipeId }) => {
   } catch (error) {
     return { status: false, data: error };
   }
-};
+}
