@@ -15,22 +15,48 @@ const LoginModal = () => {
     setPassword(event.target.value);
   }
 
-  // Function to valid the login details
-  function validateLogin(event) {
-    event.preventDefault();
-    console.log("Checking sign up details.");
-    validateEmail();
-    validatePassword();
-  }
-
   // Function to make sure the email is valid
   function validateEmail() {
     // Do this
+    return true;
   }
 
   // Function to ensure password is strong
   function validatePassword() {
     // Do this
+    return true;
+  }
+
+  // Function to valid the login details
+  function validateLogin() {
+    return validateEmail() && validatePassword();
+  }
+
+  // Function to sign in
+  async function signin(event) {
+    event.preventDefault();
+    if (validateLogin()) {
+      try {
+        const response = await fetch("/user/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        console.log(response);
+        const json = await response.json();
+        console.log(json);
+        if (json.error) {
+          console.log("Error details:", json.error.details);
+        }
+      } catch (error) {
+        console.log("An error occurred:", error.message);
+      }
+    }
   }
 
   return (
@@ -56,7 +82,7 @@ const LoginModal = () => {
           </div>
           <div className="modal-body">
             <p>Login or sign up to access your favorite recipes!</p>
-            <form onSubmit={validateLogin}>
+            <form onSubmit={(event) => signin(event)}>
               <div className="mb-2">
                 <label htmlFor="login-email" className="form-label">
                   Email address
