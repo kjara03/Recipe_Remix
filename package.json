@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
-    "install-client": "cd client && npm install",
-    "install-server": "cd server && npm install",
     "client": "cd client && npm run dev",
     "server": "cd server && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "install": "concurrently \"npm run install-client\" \"npm run install-client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
