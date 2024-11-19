@@ -8,17 +8,10 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
-      "/user": {
+      "/api": {
         target: "http://localhost:3000", // The target host
-        changeOrigin: true, // Recommended for virtual hosted sites
-      },
-      "/favorite": {
-        target: "http://localhost:3000", // The target host
-        changeOrigin: true, // Recommended for virtual hosted sites
-      },
-      "/recipe": {
-        target: "http://localhost:3000", // The target host
-        changeOrigin: true, // Recommended for virtual hosted sites
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

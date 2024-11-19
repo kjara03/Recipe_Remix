@@ -30,15 +30,6 @@ const SearchPage = () => {
       if (json.number > 0) {
         extractRecipesDetails(json.results);
       }
-      /*
-      const response = await fetch(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${EDAMAN_ID}&app_key=${EDAMAN_API_KEY}`
-      );
-      const json = await response.json();
-      console.log(json);
-      if (json.count > 0) {
-        extractRecipesDetails(json);
-      }*/
     } catch (error) {
       alert(error);
     }
@@ -61,7 +52,7 @@ const SearchPage = () => {
 
   // Function to add recipe data to the backend
   async function addRecipe(recipe) {
-    const response = await fetch("http://localhost:3000/recipe", {
+    const response = await fetch("http://localhost:3000/api/recipe", {
       method: "POST",
       body: JSON.stringify({
         id: recipe.id,

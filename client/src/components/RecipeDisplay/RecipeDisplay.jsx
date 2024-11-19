@@ -7,18 +7,22 @@ const RecipeDisplay = (props) => {
   const {
     cookTime,
     cuisineType,
-    details,
     dietLabels,
-    dishType,
+    dishTypes,
     image,
     ingredients,
     instructions,
     name,
     nutrients,
-    price,
     servings,
     url,
   } = props;
+
+  // Function to capialize the first letter of a string
+  function captializeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <div className="container recipe-display-container">
       <div className="recipe-display-header">
@@ -33,33 +37,62 @@ const RecipeDisplay = (props) => {
         <div className="recipe-display-description">
           <h2>{name}</h2>
           {cuisineType.length > 0 && (
-            <div>Cuisine type: {cuisineType.map((type) => type).join(" ")}</div>
-          )}
-          {dietLabels.length > 0 && (
-            <div>Diet Labels: {dietLabels.map((label) => label).join(" ")}</div>
-          )}
-          {dishType.length > 0 && (
-            <div>Dish type: {dishType.map((type) => type).join(" ")}</div>
-          )}
-          {ingredients.length > 0 && (
             <div>
-              Ingredients:{" "}
-              {ingredients.map((ingredient) => ingredient).join(" ")}
+              Cuisine type:{" "}
+              {cuisineType
+                .map((cuisine) => captializeFirstLetter(cuisine))
+                .join(", ")}
             </div>
           )}
-          <p>You will obtain {servings} of them.</p>
-          {url && <a href={url}>Find step-by-step guide.</a>}
+          {dietLabels.length > 0 && (
+            <div>
+              Diet Labels:{" "}
+              {dietLabels
+                .map((label) => captializeFirstLetter(label))
+                .join(", ")}
+            </div>
+          )}
+          {dishTypes.length > 0 && (
+            <div>
+              Dish type:{" "}
+              {dishTypes.map((dish) => captializeFirstLetter(dish)).join(", ")}
+            </div>
+          )}
+          <div>Servings: {servings}</div>
+          <div>Cook time: {cookTime}</div>
+          {url && <a href={url}>Find detailed step-by-step guide.</a>}
         </div>
       </div>
-      {/*
-        <div className="recipe-display-body">
-          <MacroNutrientPieChart
-            carbs={nutrients.CHOCDF}
-            fats={nutrients.FAT}
-            proteins={nutrients.PROCNT}
-          />
+      <div className="recipe-display-body">
+        <div className="recipe-details">
+          {ingredients.length > 0 && (
+            <div className="recipe-ingredients-list">
+              <h5>Ingredients needed</h5>
+              <ul>
+                {ingredients.map((ingredient) => {
+                  return <li key={ingredient.name}>{ingredient.original}</li>;
+                })}
+              </ul>
+            </div>
+          )}
+          {instructions.length > 0 && (
+            <div className="recipe-instructions">
+              <h5>How to Prepare This Dish</h5>
+              <ol>
+                {instructions[0].steps.map((instruction) => {
+                  return <li key={instruction.number}>{instruction.step}</li>;
+                })}
+              </ol>
+            </div>
+          )}
         </div>
-      */}
+        <MacroNutrientPieChart
+          unit={nutrients.weightPerServing.unit}
+          carbs={nutrients.caloricBreakdown.percentCarbs}
+          fats={nutrients.caloricBreakdown.percentFat}
+          proteins={nutrients.caloricBreakdown.percentProtein}
+        />
+      </div>
     </div>
   );
 };
@@ -67,15 +100,13 @@ const RecipeDisplay = (props) => {
 RecipeDisplay.propTypes = {
   cookTime: PropTypes.number.isRequired,
   cuisineType: PropTypes.array.isRequired,
-  details: PropTypes.string.isRequired,
   dietLabels: PropTypes.array.isRequired,
-  dishType: PropTypes.array.isRequired,
+  dishTypes: PropTypes.array.isRequired,
   image: PropTypes.string.isRequired,
   ingredients: PropTypes.array.isRequired,
   instructions: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   nutrients: PropTypes.object.isRequired,
-  price: PropTypes.number.isRequired,
   servings: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
 };

@@ -17,6 +17,7 @@ const RecipePage = () => {
   // Function to fetch details on the specific recipe
   async function fetchRecipeById() {
     try {
+      console.log("Fetching");
       const response = await fetch(
         `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
       );
@@ -26,14 +27,6 @@ const RecipePage = () => {
       const json = await response.json();
       console.log(json);
       extractRecipeDetails(json);
-      /*
-      const response = await fetch(
-        `https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=${EDAMAN_ID}&app_key=${EDAMAN_API_KEY}`
-      );
-      const json = await response.json();
-      if (json.recipe) {
-        extractRecipeDetails(json.recipe);
-      }*/
     } catch (error) {
       alert(error);
     }
@@ -45,15 +38,13 @@ const RecipePage = () => {
     setRecipe({
       cookTime: data.readyInMinutes,
       cuisineType: data.cuisines,
-      details: data.summary,
       dietLabels: data.diets,
-      dishType: data.dishTypes,
+      dishTypes: data.dishTypes,
       image: data.image,
       ingredients: data.extendedIngredients,
       instructions: data.analyzedInstructions,
       name: data.title,
-      nutrients: data.totalNutrients,
-      price: data.pricePerServing,
+      nutrients: data.nutrition,
       servings: data.servings,
       url: data.sourceUrl,
     });
