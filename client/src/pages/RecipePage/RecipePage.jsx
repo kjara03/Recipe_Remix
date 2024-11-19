@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RecipeDisplay from "../../components/RecipeDisplay/RecipeDisplay";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-const EDAMAN_ID = import.meta.env.VITE_EDAMAN_ID;
-const EDAMAN_API_KEY = import.meta.env.VITE_EDAMAN_API_KEY;
+const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -19,12 +18,22 @@ const RecipePage = () => {
   async function fetchRecipeById() {
     try {
       const response = await fetch(
+        `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
+      );
+      if (!response.ok) {
+        return;
+      }
+      const json = await response.json();
+      console.log(json);
+      extractRecipeDetails(json);
+      /*
+      const response = await fetch(
         `https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=${EDAMAN_ID}&app_key=${EDAMAN_API_KEY}`
       );
       const json = await response.json();
       if (json.recipe) {
         extractRecipeDetails(json.recipe);
-      }
+      }*/
     } catch (error) {
       alert(error);
     }
@@ -33,18 +42,20 @@ const RecipePage = () => {
 
   // Function to extract the necessary recipe details
   function extractRecipeDetails(data) {
-    console.log(data);
     setRecipe({
-      calories: data.calories,
-      cuisineType: data.cuisineType,
-      dietLabels: data.dietLabels,
-      dishType: data.dishType,
-      ingredients: data.ingredientLines,
-      name: data.label,
-      nutrients: data.totalNutrients,
-      quantity: data.yield,
+      cookTime: data.readyInMinutes,
+      cuisineType: data.cuisines,
+      details: data.summary,
+      dietLabels: data.diets,
+      dishType: data.dishTypes,
       image: data.image,
-      url: data.url,
+      ingredients: data.extendedIngredients,
+      instructions: data.analyzedInstructions,
+      name: data.title,
+      nutrients: data.totalNutrients,
+      price: data.pricePerServing,
+      servings: data.servings,
+      url: data.sourceUrl,
     });
   }
 

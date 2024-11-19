@@ -8,9 +8,12 @@ router.post("/", async (req, res) => {
   const { id, name, image } = req.body; // Extract the details
   try {
     const { data } = await createRecipe(id, name, image);
-    res.status(201).json(data);
+    if (data.error) {
+      return res.status(data.status).json({ message: data.error.message });
+    }
+    return res.status(201).json(data);
   } catch (error) {
-    res
+    return res
       .status(400)
       .json({ message: "Failed to create recipe", error: error.message });
   }
@@ -25,9 +28,9 @@ router.get("/:id", async (req, res) => {
     if (data.error) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (error) {
-    res
+    return res
       .status(400)
       .json({ message: "Failed to retrieve recipe", error: error.message });
   }
