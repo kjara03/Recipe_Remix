@@ -1,35 +1,30 @@
 import { useState, useEffect } from "react";
-import "./SearchPage.css";
-import { useParams } from "react-router-dom";
 import GridLayout from "../../components/GridLayout/GridLayout";
-import IngredientMenu from "../../components/IngredientMenu/IngredientMenu";
-import Searchbar from "../../components/SearchBar/Searchbar";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
-const SearchPage = () => {
-  const { query } = useParams(); // Extract the search query
+const ExplorePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch recipes
   useEffect(() => {
-    fetchRecipes();
-  }, [query]);
+    fetchRandomRecipes();
+  }, []);
 
-  // Function to search for recipes using the api after it detects a search parameter
-  async function fetchRecipes() {
+  // Function to call the api for random recipes
+  async function fetchRandomRecipes() {
     // Reset the states
     setIsLoading(true);
     setRecipes([]);
     try {
       const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${SPOONACULAR_API_KEY}`
+        `https://api.spoonacular.com/recipes/random?number=12&includeNutrition=false&apiKey=${SPOONACULAR_API_KEY}`
       );
       const json = await response.json();
       console.log(json);
-      if (json.number > 0) {
-        extractRecipesDetails(json.results);
+      if (json.recipes.length > 0) {
+        extractRecipesDetails(json.recipes);
       }
     } catch (error) {
       alert(error);
@@ -70,15 +65,14 @@ const SearchPage = () => {
   }
 
   return (
-    <div className="search-page-container">
-      <Searchbar />
+    <div className="explore-page-container">
+      <div className="mt-3 mb-3 text-center ">
+        <button className="btn btn-secondary" onClick={fetchRandomRecipes}>
+          Get random recipes
+        </button>
+      </div>
       {recipes.length > 0 ? (
-        <div>
-          <div className="mt-3 mb-3">
-            <IngredientMenu />
-          </div>
-          <GridLayout recipes={recipes} />
-        </div>
+        <GridLayout recipes={recipes} />
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -88,4 +82,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default ExplorePage;

@@ -17,7 +17,6 @@ const RecipePage = () => {
   // Function to fetch details on the specific recipe
   async function fetchRecipeById() {
     try {
-      console.log("Fetching");
       const response = await fetch(
         `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
       );

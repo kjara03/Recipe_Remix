@@ -1,11 +1,12 @@
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import ExplorePage from "./pages/ExplorePage/ExplorePage";
+import FavoritePage from "./pages/FavoritePage/FavoritePage";
 import HomePage from "./pages/HomePage/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import RecipePage from "./pages/RecipePage/RecipePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FavoritePage from "./pages/FavoritePage/FavoritePage";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
           <Route path="/favorites" element={<FavoritePage />}></Route>
           <Route path="/account"></Route>
           <Route path="/about"></Route>
-          <Route path="/explore"></Route>
+          <Route path="/explore" element={<ExplorePage />}></Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

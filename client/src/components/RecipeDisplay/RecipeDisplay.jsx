@@ -59,7 +59,7 @@ const RecipeDisplay = (props) => {
             </div>
           )}
           <div>Servings: {servings}</div>
-          <div>Cook time: {cookTime}</div>
+          <div>Cook time: {cookTime} minutes</div>
           {url && <a href={url}>Find detailed step-by-step guide.</a>}
         </div>
       </div>

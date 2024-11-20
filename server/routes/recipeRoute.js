@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
   try {
     const { data } = await createRecipe(id, name, image);
     if (data.error) {
-      return res.status(data.status).json({ message: data.error.message });
+      return res.json({ message: data.error.message });
     }
     return res.status(201).json(data);
   } catch (error) {
@@ -26,7 +26,7 @@ router.get("/:id", async (req, res) => {
     const { data } = await getRecipeById(id);
     // Return a message if recipe cannot be found with the recipe id
     if (data.error) {
-      return res.status(404).json({ message: "Recipe not found" });
+      return res.json({ message: "Recipe not found" });
     }
     return res.status(200).json(data);
   } catch (error) {

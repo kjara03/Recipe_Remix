@@ -1,7 +1,7 @@
 .home-page-background {
   width: 100vw;
   height: 100vh;
-  background: url("../../assets/foodmainpic.jpg");
+  background: url("../../assets/foodmainpic.png");
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent tiling */
   background-position: center; /* Center the image */

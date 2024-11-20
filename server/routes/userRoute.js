@@ -12,9 +12,7 @@ router.post("/", async (req, res) => {
     const hash = await argon2.hash(password);
     const { data } = await createUser(email, hash, username);
     if (data.error) {
-      return res
-        .status(data.status)
-        .json({ message: data.error.message, error: data.error });
+      return res.json({ message: data.error.message, error: data.error });
     }
     return res.status(201).json(data);
   } catch (error) {
@@ -30,11 +28,11 @@ router.post("/login", async (req, res) => {
   try {
     const { data } = await getUserByEmail(email);
     if (data.error) {
-      return res.status(data.status).json({ message: data.error.message });
+      return res.json({ message: data.error.message });
     }
     const passwordMatch = await argon2.verify(data.data.password, password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.json({ message: "Invalid email or password" });
     }
     return res.status(200).json({ message: "Login verified" });
   } catch (error) {

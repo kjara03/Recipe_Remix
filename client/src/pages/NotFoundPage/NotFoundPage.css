@@ -1,7 +1,7 @@
 .not-found-background {
   width: 100vw;
   height: 100vh;
-  background: url("../../assets/notfoundbackground.jpg");
+  background: url("../../assets/notfoundbackground.png");
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent tiling */
   background-position: center; /* Center the image */

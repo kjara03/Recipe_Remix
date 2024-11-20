@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light sticky-top">
+      <nav className="navbar navbar-expand-xl navbar-light sticky-top">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             Recipe Remix
@@ -38,8 +38,8 @@ const Navbar = () => {
             id="navbar-links"
           >
             <div className="navbar-nav text-center">
-              <Link className="navbar-link" to="/recipes">
-                Recipes
+              <Link className="navbar-link" to="/explore">
+                Explore
               </Link>
               <Link className="navbar-link" to="/favorites">
                 Favorites
