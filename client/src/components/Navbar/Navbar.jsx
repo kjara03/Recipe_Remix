@@ -5,6 +5,7 @@ import SignupForm from "../SignupForm/SignupForm";
 import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
 import { Link } from "react-router-dom";
+import LogoutButton from "../LogoutButton/LogoutButton";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
@@ -51,6 +52,7 @@ const Navbar = () => {
             <div className="d-flex justify-content-center align-items-center gap-3">
               <LoginButton />
               <SignupButton />
+              <LogoutButton />
             </div>
           </div>
         </div>

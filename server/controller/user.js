@@ -6,9 +6,9 @@ export async function createUser(email, password, username) {
     const user = await supabase
       .from("User")
       .insert({ email: email, password: password, username: username });
-    return { data: user };
+    return user;
   } catch (error) {
-    return { data: error };
+    return error;
   }
 }
 
@@ -16,9 +16,9 @@ export async function createUser(email, password, username) {
 export async function getUserById(id) {
   try {
     const user = await supabase.from("User").select("*").eq("id", id).single();
-    return { data: user };
+    return user;
   } catch (error) {
-    return { data: error };
+    return error;
   }
 }
 
@@ -30,8 +30,8 @@ export async function getUserByEmail(email) {
       .select("*")
       .eq("email", email)
       .single();
-    return { data: user };
+    return user;
   } catch (error) {
-    return { data: error };
+    return error;
   }
 }

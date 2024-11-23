@@ -6,12 +6,9 @@ export async function createFavoriteEntry(userId, recipeId) {
     const favoriteEntry = await supabase
       .from("Favorite")
       .insert({ userid: userId, recipeid: recipeId });
-    if (favoriteEntry.error) {
-      return { status: false, data: favoriteEntry };
-    }
-    return { status: true, data: favoriteEntry };
+    return favoriteEntry;
   } catch (error) {
-    return { status: false, data: error };
+    return error;
   }
 }
 
@@ -19,12 +16,9 @@ export async function createFavoriteEntry(userId, recipeId) {
 export async function removeFavoriteEntryById(id) {
   try {
     const entry = await supabase.from("Favorite").delete().eq("id", id);
-    if (entry.erorr) {
-      return { status: false, data: entry };
-    }
-    return { status: true, data: entry };
+    return entry;
   } catch (error) {
-    return { status: false, data: error };
+    return error;
   }
 }
 
@@ -35,12 +29,9 @@ export async function getFavoritesByUser(userId) {
       .from("Favorite")
       .select()
       .eq("userid", userId);
-    if (favoriteEntries.error) {
-      return { status: false, data: favoriteEntries };
-    }
-    return { status: true, data: favoriteEntries };
+    return favoriteEntries;
   } catch (error) {
-    return { status: false, data: error };
+    return error;
   }
 }
 
@@ -51,11 +42,8 @@ export async function getFavoriteCount(recipeId) {
       .from("Favorite")
       .select("*", { head: true, count: "exact" })
       .eq("recipeid", recipeId);
-    if (entryCount.error) {
-      return { status: false, data: entryCount };
-    }
-    return { status: true, data: entryCount };
+    return entryCount;
   } catch (error) {
-    return { status: false, data: error };
+    return error;
   }
 }
