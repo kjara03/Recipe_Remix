@@ -1,5 +1,6 @@
 import express from "express";
 import { createUser, getUserById, getUserByEmail } from "../controller/user.js";
+import { verifyToken } from "../middleware/authentication.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 
@@ -68,6 +69,13 @@ router.get("/id/:id", async (req, res) => {
       .status(400)
       .json({ message: "Failed to retrieve user", error: error.message });
   }*/
+});
+
+router.get("/authentication", verifyToken, (req, res) => {
+  res.json({
+    message: "Authenticated",
+    user: req.user,
+  });
 });
 
 export default router;

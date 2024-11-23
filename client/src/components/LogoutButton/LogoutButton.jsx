@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
-  const [cookies, removeCookie] = useCookies(["jwt_token"]);
+  const [cookies, setCookies, removeCookie] = useCookies(["jwt_token"]);
   const navigate = useNavigate();
 
   // Function to handle logging out
