@@ -8,23 +8,29 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import RecipePage from "./pages/RecipePage/RecipePage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+import AuthProvider from "./context/AuthProvider";
 
 const App = () => {
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/search/:query" element={<SearchPage />}></Route>
-          <Route path="/recipe/:id" element={<RecipePage />}></Route>
-          <Route path="/favorites" element={<FavoritePage />}></Route>
-          <Route path="/account" element={<AccountPage />}></Route>
-          <Route path="/about"></Route>
-          <Route path="/explore" element={<ExplorePage />}></Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
+      <CookiesProvider>
+        <AuthProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<HomePage />}></Route>
+              <Route path="/search/:query" element={<SearchPage />}></Route>
+              <Route path="/recipe/:id" element={<RecipePage />}></Route>
+              <Route path="/favorites" element={<FavoritePage />}></Route>
+              <Route path="/account" element={<AccountPage />}></Route>
+              <Route path="/about"></Route>
+              <Route path="/explore" element={<ExplorePage />}></Route>
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </CookiesProvider>
     </div>
   );
 };

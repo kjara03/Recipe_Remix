@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./SignupForm.css";
+import { Filter } from 'bad-words';
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -22,20 +23,39 @@ const SignupForm = () => {
   }
 
   // Function to make sure the email is valid
-  function validateEmail() {
-    // Do this
-    return true;
+  function validateEmail(email) {
+    var emailTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailTest.test(email);
   }
 
   // Function to ensure password is strong
-  function validatePassword() {
-    // Do this
+  function validatePassword(password) {
+    if (password.length < 6) {
+      display.innerHTML = "minimum number of characters is 6";
+      return false;
+    }
+    if (!(password.match(/[a-z]+/))) {
+      return false;
+    }
+    if (!(password.match(/[A-Z]+/))) {
+      return false;
+    }
+    if (!(password.match(/[0-9]+/))) {
+      return false;
+    }
+    if (!(password.match(/[$@#&!]+/))) {
+      return false;
+    }
     return true;
   }
 
   // Function to ensure username is appropriate
-  function validateUsername() {
-    // Do this
+  function validateUsername(username) {
+    const filter = new Filter();
+
+    if (filter.isProfane(String(username))) {
+      return false;
+    }
     return true;
   }
 
@@ -49,7 +69,7 @@ const SignupForm = () => {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const response = await fetch("/user", {
+        const response = await fetch("/api/user/register", {
           method: "POST",
           body: JSON.stringify({
             email: email,
@@ -66,8 +86,8 @@ const SignupForm = () => {
           return;
         }
         const json = await response.json();
-        if (json.error) {
-          console.log("Error details:", json.error.details);
+        if (response.status !== 201) {
+          console.log("Error details:", json.message); // Show error
         } else {
           console.log("User created successfully:", json);
         }
@@ -99,7 +119,7 @@ const SignupForm = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <p>Sign up to access your favorite recipes!</p>
+            <p>Sign up to favorite recipes you like!</p>
             <form onSubmit={signup}>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">
