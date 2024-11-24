@@ -49,7 +49,7 @@ const SignupForm = () => {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const response = await fetch("/user", {
+        const response = await fetch("/api/user/register", {
           method: "POST",
           body: JSON.stringify({
             email: email,
@@ -66,8 +66,8 @@ const SignupForm = () => {
           return;
         }
         const json = await response.json();
-        if (json.error) {
-          console.log("Error details:", json.error.details);
+        if (response.status !== 201) {
+          console.log("Error details:", json.message); // Show error
         } else {
           console.log("User created successfully:", json);
         }
@@ -99,7 +99,7 @@ const SignupForm = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <p>Sign up to access your favorite recipes!</p>
+            <p>Sign up to favorite recipes you like!</p>
             <form onSubmit={signup}>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">

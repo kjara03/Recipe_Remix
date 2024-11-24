@@ -1,9 +1,12 @@
 import { useState } from "react";
 import "./LoginModal.css";
+import { useCookies } from "react-cookie";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [cookies, setCookies] = useCookies(["jwt_token"]);
 
   // Function to update email input
   function updateEmail(event) {
@@ -37,7 +40,7 @@ const LoginModal = () => {
     event.preventDefault();
     if (validateLogin()) {
       try {
-        const response = await fetch("/user/login", {
+        const response = await fetch("/api/user/login", {
           method: "POST",
           body: JSON.stringify({
             email: email,
@@ -47,12 +50,19 @@ const LoginModal = () => {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        console.log(response);
         const json = await response.json();
         console.log(json);
-        if (json.error) {
-          console.log("Error details:", json.error.details);
+        if (response.status !== 200) {
+          console.log(json.message); // Set the error here
+          return;
         }
+        // Set up the cookie
+        const token = json.token;
+        setCookies("jwt_token", token, {
+          path: "/",
+          secure: true,
+          sameSite: "Strict",
+        });
       } catch (error) {
         console.log("An error occurred:", error.message);
       }
@@ -71,7 +81,7 @@ const LoginModal = () => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="login-modal-label">
-              Login or Sign Up
+              Login
             </h5>
             <button
               type="button"
@@ -81,7 +91,7 @@ const LoginModal = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <p>Login or sign up to access your favorite recipes!</p>
+            <p>Login to access your favorite recipes!</p>
             <form onSubmit={(event) => signin(event)}>
               <div className="mb-2">
                 <label htmlFor="login-email" className="form-label">

@@ -1,18 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Navbar.css";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupForm from "../SignupForm/SignupForm";
 import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
+import LogoutButton from "../LogoutButton/LogoutButton";
+import useAuth from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
+  const { user, isAuthenticated } = useAuth();
 
   // Function to flip the expanded state of the navbar
-  const toggleNavbar = () => {
+  function toggleNavbar() {
     setIsExpanded(!isExpanded);
-  };
+  }
+
+  useEffect(() => {
+    removeModal();
+  }, [isAuthenticated]);
+
+  // Function to remove bootstrap modal backdrop
+  function removeModal() {
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+      backdrop.remove();
+    }
+    const modal = document.querySelector(".modal.show");
+    if (modal) {
+      modal.classList.remove("show");
+    }
+  }
 
   return (
     <>
@@ -48,15 +67,25 @@ const Navbar = () => {
                 About
               </Link>
             </div>
-            <div className="d-flex justify-content-center align-items-center gap-3">
-              <LoginButton />
-              <SignupButton />
-            </div>
+            {isAuthenticated ? (
+              <div className="d-flex justify-content-center align-items-center gap-3">
+                <LogoutButton />
+              </div>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center gap-3">
+                <LoginButton />
+                <SignupButton />
+              </div>
+            )}
           </div>
         </div>
       </nav>
-      <LoginModal />
-      <SignupForm />
+      {!isAuthenticated && (
+        <div>
+          <LoginModal />
+          <SignupForm />
+        </div>
+      )}
     </>
   );
 };
