@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { AuthContext } from "./AuthContext";
+import PropTypes from "prop-types";
 
 const AuthProvider = ({ children }) => {
+  // eslint-disable-next-line no-unused-vars
   const [cookies, setCookies, removeCookies] = useCookies(["jwt_token"]);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,6 +37,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       setIsAuthenticated(false);
       setUser(null);
+      console.log(error);
     }
   }
 
@@ -43,6 +46,10 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node,
 };
 
 export default AuthProvider;

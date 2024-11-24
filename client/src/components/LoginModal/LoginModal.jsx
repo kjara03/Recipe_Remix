@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [cookies, setCookies] = useCookies(["jwt_token"]);
 
   // Function to update email input
