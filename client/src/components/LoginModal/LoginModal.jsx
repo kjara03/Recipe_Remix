@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./LoginModal.css";
+import Alert from "../Alert/Alert";
 import { useCookies } from "react-cookie";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // eslint-disable-next-line no-unused-vars
+  const [alert, setAlert] = useState(null);
   const [cookies, setCookies] = useCookies(["jwt_token"]);
+
+  // Helper function to set the alert
+  function showAlert(status, message) {
+    setAlert({
+      status,
+      text: message,
+    });
+  }
+
+  // Clear the alert automatically after 3 seconds
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => setAlert(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
 
   // Function to update email input
   function updateEmail(event) {
@@ -18,54 +35,41 @@ const LoginModal = () => {
     setPassword(event.target.value);
   }
 
-  // Function to make sure the email is valid
-  function validateEmail() {
-    // Do this
-    return true;
-  }
-
-  // Function to ensure password is strong
-  function validatePassword() {
-    // Do this
-    return true;
-  }
-
-  // Function to valid the login details
-  function validateLogin() {
-    return validateEmail() && validatePassword();
-  }
-
   // Function to sign in
   async function signin(event) {
     event.preventDefault();
-    if (validateLogin()) {
-      try {
-        const response = await fetch("/api/user/login", {
-          method: "POST",
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
-        const json = await response.json();
-        console.log(json);
-        if (response.status !== 200) {
-          console.log(json.message); // Set the error here
-          return;
-        }
-        // Set up the cookie
-        const token = json.token;
-        setCookies("jwt_token", token, {
-          path: "/",
-          secure: true,
-          sameSite: "Strict",
-        });
-      } catch (error) {
-        console.log("An error occurred:", error.message);
+    // If the user already has a cookie meaning their are authenticated then don't allow then to login again
+    if (cookies.jwt_token) {
+      showAlert("warning", "You're already logged in!");
+      return;
+    }
+    try {
+      const response = await fetch("/api/user/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+      const json = await response.json();
+      if (response.status !== 200) {
+        showAlert("danger", json.message);
+        return;
       }
+      // Set up the cookie
+      const token = json.token;
+      setCookies("jwt_token", token, {
+        path: "/",
+        secure: true,
+        sameSite: "Strict",
+      });
+      showAlert("success", "Account verifed!");
+    } catch (error) {
+      showAlert("danger", "error.message");
+      console.log("An error occurred:", error.message);
     }
   }
 
@@ -77,6 +81,7 @@ const LoginModal = () => {
       aria-labelledby="login-modal-label"
       aria-hidden="true"
     >
+      {alert && <Alert {...alert} />}
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -104,6 +109,7 @@ const LoginModal = () => {
                   placeholder="Enter your email"
                   onChange={updateEmail}
                   value={email}
+                  maxLength="320"
                   required
                 />
               </div>
@@ -118,6 +124,8 @@ const LoginModal = () => {
                   placeholder="Enter your password"
                   onChange={updatePassword}
                   value={password}
+                  minLength="6"
+                  maxLength="128"
                   required
                 />
               </div>

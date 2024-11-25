@@ -1,0 +1,12 @@
+input#login-email:focus:invalid,
+input#login-password:focus:invalid {
+  background: #fff8c4 url(../../assets/red.png) right 10px center/contain
+    no-repeat;
+  background-size: 1.25em;
+  border-color: #dc3545;
+}
+
+input#login-email,
+input#login-password {
+  padding-right: 2em;
+}

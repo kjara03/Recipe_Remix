@@ -1,19 +1,14 @@
 input#signup-email:focus:invalid,
 input#signup-password:focus:invalid,
-input#username:focus:invalid{
-  background:#fff8c4 url(../../assets/red.png) right/contain no-repeat;
+input#username:focus:invalid {
+  background: #fff8c4 url(../../assets/red.png) right 10px center/contain
+    no-repeat;
+  background-size: 1.25em;
+  border-color: #dc3545;
 }
 
-input#signup-email:focus:valid,
-input#signup-password:focus:valid,
-input#username:focus:valid{
-  background:#ffffff url(../../assets/green.png) right/contain no-repeat;
-}
-
-.form-control:invalid{
-  border-color:#DC3545;
-}
-
-.form-control:valid{
-  border-color:#28A745;
+input#signup-email,
+input#signup-password,
+input#username {
+  padding-right: 2em;
 }

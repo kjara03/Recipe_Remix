@@ -1,0 +1,14 @@
+.alert {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  text-align: center;
+}
+
+@media (max-width: 576px) {
+  .alert {
+    width: 70%;
+  }
+}

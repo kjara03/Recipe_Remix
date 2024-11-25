@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // Function to flip the expanded state of the navbar
   function toggleNavbar() {
@@ -26,10 +26,6 @@ const Navbar = () => {
     const backdrop = document.querySelector(".modal-backdrop");
     if (backdrop) {
       backdrop.remove();
-    }
-    const modal = document.querySelector(".modal.show");
-    if (modal) {
-      modal.classList.remove("show");
     }
   }
 
@@ -80,12 +76,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      {!isAuthenticated && (
-        <div>
-          <LoginModal />
-          <SignupForm />
-        </div>
-      )}
+      <LoginModal />
+      <SignupForm />
     </>
   );
 };

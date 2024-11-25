@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SignupForm.css";
-import { Filter } from 'bad-words';
+import Alert from "../Alert/Alert";
+import { Filter } from "bad-words";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [alert, setAlert] = useState(null);
+
+  // Helper function to set the alert
+  function showAlert(status, message) {
+    setAlert({
+      status,
+      text: message,
+    });
+  }
+
+  // Clear the alert automatically after 3 seconds
+  useEffect(() => {
+    if (alert) {
+      const timer = setTimeout(() => setAlert(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
 
   // Function to update email input
   function updateEmail(event) {
@@ -22,38 +40,52 @@ const SignupForm = () => {
     setUsername(event.target.value);
   }
 
-  // Function to make sure the email is valid
-  function validateEmail(email) {
-    var emailTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return emailTest.test(email);
-  }
-
-  // Function to ensure password is strong
-  function validatePassword(password) {
-    if (password.length < 6) {
-      display.innerHTML = "minimum number of characters is 6";
-      return false;
-    }
-    if (!(password.match(/[a-z]+/))) {
-      return false;
-    }
-    if (!(password.match(/[A-Z]+/))) {
-      return false;
-    }
-    if (!(password.match(/[0-9]+/))) {
-      return false;
-    }
-    if (!(password.match(/[$@#&!]+/))) {
+  // Function to ensure email has the correct format
+  function validateEmail() {
+    const emailTest =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailTest.test(email)) {
+      showAlert("warning", "Invalid email format!");
       return false;
     }
     return true;
   }
 
-  // Function to ensure username is appropriate
-  function validateUsername(username) {
-    const filter = new Filter();
+  // Function to ensure password is strong enough
+  function validatePassword() {
+    if (!/[a-z]/.test(password)) {
+      showAlert(
+        "warning",
+        "Password must contain at least one lowercase character!"
+      );
+      return false;
+    }
+    if (!/[A-Z]/.test(password)) {
+      showAlert(
+        "warning",
+        "Password must contain at least one uppercase character!"
+      );
+      return false;
+    }
+    if (!/[0-9]/.test(password)) {
+      showAlert("warning", "Password must contain at least one digit!");
+      return false;
+    }
+    if (!/[$@#&!%^*()\-_+=]/.test(password)) {
+      showAlert(
+        "warning",
+        "Password must contain at least one special character!"
+      );
+      return false;
+    }
+    return true;
+  }
 
-    if (filter.isProfane(String(username))) {
+  // Function to ensure username doesn't contain bad language
+  function validateUsername() {
+    const filter = new Filter();
+    if (filter.isProfane(username)) {
+      showAlert("warning", "Username cannot contain bad language!");
       return false;
     }
     return true;
@@ -68,6 +100,7 @@ const SignupForm = () => {
   async function signup(event) {
     event.preventDefault();
     if (validateForm()) {
+      setAlert(null);
       try {
         const response = await fetch("/api/user/register", {
           method: "POST",
@@ -82,16 +115,13 @@ const SignupForm = () => {
         });
         // Check if the response indicates a duplicate (status 409)
         if (response.status === 409) {
-          console.log("This email is already registered.");
-          return;
-        }
-        const json = await response.json();
-        if (response.status !== 201) {
-          console.log("Error details:", json.message); // Show error
-        } else {
-          console.log("User created successfully:", json);
+          showAlert("danger", "This email is already registered!");
+        } else if (response.status === 201) {
+          // A 201 response indicate the user is created successfully
+          showAlert("success", "Account created successfully!");
         }
       } catch (error) {
+        showAlert("danger", error.message);
         console.log("An error occurred:", error.message);
       }
     }
@@ -105,6 +135,7 @@ const SignupForm = () => {
       aria-labelledby="signup-modal-label"
       aria-hidden="true"
     >
+      {alert && <Alert {...alert} />}
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -132,6 +163,7 @@ const SignupForm = () => {
                   placeholder="Enter your email"
                   onChange={updateEmail}
                   value={email}
+                  maxLength="320"
                   required
                 />
               </div>
@@ -146,6 +178,7 @@ const SignupForm = () => {
                   placeholder="Enter your password"
                   onChange={updatePassword}
                   value={password}
+                  maxLength="128"
                   required
                 />
               </div>
@@ -160,6 +193,7 @@ const SignupForm = () => {
                   placeholder="Enter your username"
                   onChange={updateUsername}
                   value={username}
+                  maxLength="100"
                   required
                 />
               </div>
