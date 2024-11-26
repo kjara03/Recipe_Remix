@@ -14,60 +14,59 @@ const SearchPage = () => {
 
   // Fetch recipes
   useEffect(() => {
-    fetchRecipes();
-  }, [query]);
+    // Function to search for recipes using the api after it detects a search parameter
+    async function fetchRecipes() {
+      // Reset the states
+      setIsLoading(true);
+      setRecipes([]);
+      try {
+        const response = await fetch(
+          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${SPOONACULAR_API_KEY}`
+        );
+        const json = await response.json();
+        console.log(json);
+        if (json.number > 0) {
+          extractRecipesDetails(json.results);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    }
+    // Function to extract recipe data
+    function extractRecipesDetails(data) {
+      const recipesData = data.map((recipeData) => {
+        return {
+          id: recipeData.id,
+          image: recipeData.image,
+          name: recipeData.title,
+        };
+      });
+      setRecipes(recipesData);
+      recipesData.forEach((recipe) => {
+        addRecipe(recipe);
+      });
+    }
 
-  // Function to search for recipes using the api after it detects a search parameter
-  async function fetchRecipes() {
-    // Reset the states
-    setIsLoading(true);
-    setRecipes([]);
-    try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${SPOONACULAR_API_KEY}`
-      );
+    // Function to add recipe data to the backend
+    async function addRecipe(recipe) {
+      const response = await fetch("http://localhost:3000/recipe", {
+        method: "POST",
+        body: JSON.stringify({
+          id: recipe.id,
+          image: recipe.image,
+          name: recipe.name,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
       const json = await response.json();
       console.log(json);
-      if (json.number > 0) {
-        extractRecipesDetails(json.results);
-      }
-    } catch (error) {
-      alert(error);
     }
-    setIsLoading(false);
-  }
 
-  // Function to extract recipe data
-  function extractRecipesDetails(data) {
-    const recipesData = data.map((recipeData) => {
-      return {
-        id: recipeData.id,
-        image: recipeData.image,
-        name: recipeData.title,
-      };
-    });
-    setRecipes(recipesData);
-    recipesData.forEach((recipe) => {
-      addRecipe(recipe);
-    });
-  }
-
-  // Function to add recipe data to the backend
-  async function addRecipe(recipe) {
-    const response = await fetch("http://localhost:3000/recipe", {
-      method: "POST",
-      body: JSON.stringify({
-        id: recipe.id,
-        image: recipe.image,
-        name: recipe.name,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    const json = await response.json();
-    console.log(json);
-  }
+    fetchRecipes();
+  }, [query]);
 
   return (
     <div className="search-page-container">

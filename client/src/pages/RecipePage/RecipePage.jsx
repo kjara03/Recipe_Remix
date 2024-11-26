@@ -11,26 +11,25 @@ const RecipePage = () => {
 
   // Fetch the recipe from the api
   useEffect(() => {
+    // Function to fetch details on the specific recipe
+    async function fetchRecipeById() {
+      try {
+        const response = await fetch(
+          `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
+        );
+        if (!response.ok) {
+          return;
+        }
+        const json = await response.json();
+        console.log(json);
+        extractRecipeDetails(json);
+      } catch (error) {
+        alert(error);
+      }
+      setIsLoading(false);
+    }
     fetchRecipeById();
   }, [id]);
-
-  // Function to fetch details on the specific recipe
-  async function fetchRecipeById() {
-    try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
-      );
-      if (!response.ok) {
-        return;
-      }
-      const json = await response.json();
-      console.log(json);
-      extractRecipeDetails(json);
-    } catch (error) {
-      alert(error);
-    }
-    setIsLoading(false);
-  }
 
   // Function to extract the necessary recipe details
   function extractRecipeDetails(data) {

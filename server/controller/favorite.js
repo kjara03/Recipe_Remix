@@ -1,11 +1,11 @@
 import supabase from "../db/db.js";
 
 // Create a favorite entry into the table
-export async function createFavoriteEntry(userId, recipeId) {
+export async function createFavoriteEntry(userid, recipeid) {
   try {
     const favoriteEntry = await supabase
       .from("Favorite")
-      .insert({ userid: userId, recipeid: recipeId });
+      .insert({ userid: userid, recipeid: recipeid });
     return favoriteEntry;
   } catch (error) {
     return error;
@@ -23,12 +23,12 @@ export async function removeFavoriteEntryById(id) {
 }
 
 // Retrieve favorite recipes of a user
-export async function getFavoritesByUser(userId) {
+export async function getFavoritesByUser(userid) {
   try {
     const favoriteEntries = await supabase
       .from("Favorite")
       .select()
-      .eq("userid", userId);
+      .eq("userid", userid);
     return favoriteEntries;
   } catch (error) {
     return error;
@@ -36,12 +36,12 @@ export async function getFavoritesByUser(userId) {
 }
 
 // Retrieve number of counts a recipe was favorited by users
-export async function getFavoriteCount(recipeId) {
+export async function getFavoriteCount(recipeid) {
   try {
     const entryCount = await supabase
       .from("Favorite")
       .select("*", { head: true, count: "exact" })
-      .eq("recipeid", recipeId);
+      .eq("recipeid", recipeid);
     return entryCount;
   } catch (error) {
     return error;

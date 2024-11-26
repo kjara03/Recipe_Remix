@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserById, getUserByEmail } from "../controller/user.js";
+import { createUser, getUserByEmail } from "../controller/user.js";
 import { verifyToken } from "../middleware/authentication.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ message: "Failed to create user", error: error.message });
+      .json({ message: "Failed to create user!", error: error.message });
   }
 });
 
@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
     }
     const passwordMatch = await argon2.verify(user.data.password, password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Invalid email or password!" });
     }
     // Add jwt session token
     const token = jwt.sign(
@@ -46,17 +46,17 @@ router.post("/login", async (req, res) => {
         expiresIn: "168h",
       }
     );
-    return res.status(200).json({ message: "Login verified", token: token });
+    return res.status(200).json({ message: "Login verified!", token: token });
   } catch (error) {
     res
       .status(400)
-      .json({ message: "Failed to retrieve user", error: error.message });
+      .json({ message: "Failed to retrieve user!", error: error.message });
   }
 });
 
 // Get user based on id
-router.get("/id/:id", async (req, res) => {
-  /*
+/*
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await getUserById(id);
@@ -68,8 +68,9 @@ router.get("/id/:id", async (req, res) => {
     res
       .status(400)
       .json({ message: "Failed to retrieve user", error: error.message });
-  }*/
+  }
 });
+*/
 
 router.get("/authentication", verifyToken, (req, res) => {
   res.json({

@@ -10,6 +10,7 @@ const ExplorePage = () => {
   // Fetch recipes
   useEffect(() => {
     fetchRandomRecipes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function to call the api for random recipes

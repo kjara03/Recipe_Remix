@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
+  // eslint-disable-next-line no-unused-vars
   const [cookies, setCookies, removeCookie] = useCookies(["jwt_token"]);
   const navigate = useNavigate();
 

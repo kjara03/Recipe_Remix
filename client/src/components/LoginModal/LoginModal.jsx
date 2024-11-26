@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./LoginModal.css";
 import useAlert from "../../context/AlertContext";
 import { useCookies } from "react-cookie";
