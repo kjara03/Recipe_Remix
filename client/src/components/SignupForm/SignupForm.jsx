@@ -1,29 +1,13 @@
 import { useState, useEffect } from "react";
 import "./SignupForm.css";
-import Alert from "../Alert/Alert";
+import useAlert from "../../context/AlertContext";
 import { Filter } from "bad-words";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [alert, setAlert] = useState(null);
-
-  // Helper function to set the alert
-  function showAlert(status, message) {
-    setAlert({
-      status,
-      text: message,
-    });
-  }
-
-  // Clear the alert automatically after 3 seconds
-  useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => setAlert(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
+  const { showAlert } = useAlert();
 
   // Function to update email input
   function updateEmail(event) {
@@ -100,7 +84,6 @@ const SignupForm = () => {
   async function signup(event) {
     event.preventDefault();
     if (validateForm()) {
-      setAlert(null);
       try {
         const response = await fetch("/api/user/register", {
           method: "POST",
@@ -115,13 +98,13 @@ const SignupForm = () => {
         });
         // Check if the response indicates a duplicate (status 409)
         if (response.status === 409) {
-          showAlert("danger", "This email is already registered!");
+          showAlert("danger", "This email is already registered!", 5000);
         } else if (response.status === 201) {
           // A 201 response indicate the user is created successfully
           showAlert("success", "Account created successfully!");
         }
       } catch (error) {
-        showAlert("danger", error.message);
+        showAlert("danger", error.message, 5000);
         console.log("An error occurred:", error.message);
       }
     }
@@ -135,7 +118,6 @@ const SignupForm = () => {
       aria-labelledby="signup-modal-label"
       aria-hidden="true"
     >
-      {alert && <Alert {...alert} />}
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -178,6 +160,7 @@ const SignupForm = () => {
                   placeholder="Enter your password"
                   onChange={updatePassword}
                   value={password}
+                  minLength="6"
                   maxLength="128"
                   required
                 />

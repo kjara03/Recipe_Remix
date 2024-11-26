@@ -1,29 +1,13 @@
 import { useState, useEffect } from "react";
 import "./LoginModal.css";
-import Alert from "../Alert/Alert";
+import useAlert from "../../context/AlertContext";
 import { useCookies } from "react-cookie";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState(null);
+  const { showAlert } = useAlert();
   const [cookies, setCookies] = useCookies(["jwt_token"]);
-
-  // Helper function to set the alert
-  function showAlert(status, message) {
-    setAlert({
-      status,
-      text: message,
-    });
-  }
-
-  // Clear the alert automatically after 3 seconds
-  useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => setAlert(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
 
   // Function to update email input
   function updateEmail(event) {
@@ -56,7 +40,7 @@ const LoginModal = () => {
       });
       const json = await response.json();
       if (response.status !== 200) {
-        showAlert("danger", json.message);
+        showAlert("danger", json.message, 5000);
         return;
       }
       // Set up the cookie
@@ -68,7 +52,7 @@ const LoginModal = () => {
       });
       showAlert("success", "Account verifed!");
     } catch (error) {
-      showAlert("danger", "error.message");
+      showAlert("danger", "error.message", 5000);
       console.log("An error occurred:", error.message);
     }
   }
@@ -81,7 +65,6 @@ const LoginModal = () => {
       aria-labelledby="login-modal-label"
       aria-hidden="true"
     >
-      {alert && <Alert {...alert} />}
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">

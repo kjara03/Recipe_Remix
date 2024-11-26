@@ -1,19 +1,17 @@
 import "./Alert.css";
-import PropTypes from "prop-types";
+import useAlert from "../../context/AlertContext";
 
-const Alert = ({ status, text }) => {
+const Alert = () => {
+  const { alert } = useAlert();
+
   return (
-    <div>
-      <div className={`alert alert-${status}`} role="alert">
-        {text}
-      </div>
+    <div
+      className={`alert alert-${alert.status} ${alert.show ? "show" : "hide"}`}
+      role="alert"
+    >
+      {alert.text}
     </div>
   );
-};
-
-Alert.propTypes = {
-  status: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 };
 
 export default Alert;
