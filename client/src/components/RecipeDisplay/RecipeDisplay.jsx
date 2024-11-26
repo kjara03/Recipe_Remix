@@ -1,7 +1,8 @@
 import "./RecipeDisplay.css";
-import PropTypes from "prop-types";
+import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
 import MacroNutrientPieChart from "../MacroNutrientPieChart/MacroNutrientPieChart";
 import errorImage from "../../assets/errorimage.png";
+import PropTypes from "prop-types";
 
 const RecipeDisplay = (props) => {
   const {
@@ -35,7 +36,10 @@ const RecipeDisplay = (props) => {
           }}
         />
         <div className="recipe-display-description">
-          <h2>{name}</h2>
+          <div className="d-flex align-items-center gap-4">
+            <h2 className="mb-0">{name}</h2>
+            <FavoriteIcon />
+          </div>
           {cuisineType.length > 0 && (
             <div>
               Cuisine type:{" "}
@@ -59,7 +63,7 @@ const RecipeDisplay = (props) => {
             </div>
           )}
           <div>Servings: {servings}</div>
-          <div>Cook time: {cookTime} minutes</div>
+          <div>Total Cook time: {cookTime} minutes</div>
           {url && <a href={url}>Find detailed step-by-step guide.</a>}
         </div>
       </div>
@@ -70,7 +74,7 @@ const RecipeDisplay = (props) => {
               <h5>Ingredients needed</h5>
               <ul>
                 {ingredients.map((ingredient) => {
-                  return <li key={ingredient.name}>{ingredient.original}</li>;
+                  return <li key={ingredient.id}>{ingredient.original}</li>;
                 })}
               </ul>
             </div>

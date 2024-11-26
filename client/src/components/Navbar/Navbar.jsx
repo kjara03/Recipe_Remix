@@ -76,8 +76,12 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <LoginModal />
-      <SignupForm />
+      {!isAuthenticated && (
+        <>
+          <LoginModal />
+          <SignupForm />
+        </>
+      )}
     </>
   );
 };

@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RecipeDisplay from "../../components/RecipeDisplay/RecipeDisplay";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
 const RecipePage = () => {
-  const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
+  const { showAlert } = useAlert();
 
   // Fetch the recipe from the api
   useEffect(() => {
@@ -18,18 +20,26 @@ const RecipePage = () => {
           `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${SPOONACULAR_API_KEY}`
         );
         if (!response.ok) {
+          // Api daily limit reached
+          if (response.status === 402) {
+            showAlert(
+              "danger",
+              "API daily limit reached! Come back tomorrow!",
+              5000
+            );
+          }
+          setIsLoading(false);
           return;
         }
         const json = await response.json();
-        console.log(json);
         extractRecipeDetails(json);
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
       setIsLoading(false);
     }
     fetchRecipeById();
-  }, [id]);
+  }, [id, showAlert]);
 
   // Function to extract the necessary recipe details
   function extractRecipeDetails(data) {

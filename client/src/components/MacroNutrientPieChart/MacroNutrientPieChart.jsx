@@ -25,7 +25,7 @@ const MacroNutrientPieChart = ({ carbs, fats, proteins }) => {
             fill="#8884d8"
             label={(entry) => `${entry.value}%`}
           >
-            {marcoNutrients.map((entry, index) => (
+            {marcoNutrients.map((_, index) => (
               <Cell key={`cell-${index}`} fill={colors[index]} />
             ))}
           </Pie>

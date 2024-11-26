@@ -12,10 +12,32 @@ export async function createFavoriteEntry(userid, recipeid) {
   }
 }
 
-// Remove the favorite entry based on id
-export async function removeFavoriteEntryById(id) {
+// Check if an favorite entry exist in the table
+export async function isFavoriteEntryPresent(userid, recipeid) {
   try {
-    const entry = await supabase.from("Favorite").delete().eq("id", id);
+    const isEntryInTable = await supabase
+      .from("Favorite")
+      .select("*")
+      .eq("userid", userid)
+      .eq("recipeid", recipeid);
+    // If the query contain data then it means it is already in favorite table
+    if (isEntryInTable.data.length > 0) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return error;
+  }
+}
+
+// Remove the favorite entry based on user id and recipe id
+export async function removeFavoriteEntryById(userid, recipeid) {
+  try {
+    const entry = await supabase
+      .from("Favorite")
+      .delete()
+      .eq("userid", userid)
+      .eq("recipeid", recipeid);
     return entry;
   } catch (error) {
     return error;
@@ -27,7 +49,7 @@ export async function getFavoritesByUser(userid) {
   try {
     const favoriteEntries = await supabase
       .from("Favorite")
-      .select()
+      .select("recipeid")
       .eq("userid", userid);
     return favoriteEntries;
   } catch (error) {

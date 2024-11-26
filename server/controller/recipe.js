@@ -6,9 +6,9 @@ export async function createRecipe(id, name, image) {
     const recipe = await supabase
       .from("Recipe")
       .insert({ id: id, name: name, image: image });
-    return { data: recipe };
+    return recipe;
   } catch (error) {
-    return { data: error };
+    return error;
   }
 }
 
@@ -20,8 +20,18 @@ export async function getRecipeById(id) {
       .select("*")
       .eq("id", id)
       .single();
-    return { data: recipe };
+    return recipe;
   } catch (error) {
-    return { data: error };
+    return error;
+  }
+}
+
+// Select the recipe based on mutltiple ids
+export async function getRecipeByIds(ids) {
+  try {
+    const recipes = await supabase.from("Recipe").select("*").in("id", ids);
+    return recipes;
+  } catch (error) {
+    return error;
   }
 }

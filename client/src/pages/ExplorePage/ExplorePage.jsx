@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
 const ExplorePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { showAlert } = useAlert();
 
   // Fetch recipes
   useEffect(() => {
@@ -23,12 +25,21 @@ const ExplorePage = () => {
         `https://api.spoonacular.com/recipes/random?number=12&includeNutrition=false&apiKey=${SPOONACULAR_API_KEY}`
       );
       const json = await response.json();
-      console.log(json);
+      // Api daily limit reached
+      if (response.status === 402) {
+        showAlert(
+          "danger",
+          "API daily limit reached! Come back tomorrow!",
+          5000
+        );
+        setIsLoading(false);
+        return;
+      }
       if (json.recipes.length > 0) {
         extractRecipesDetails(json.recipes);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
     setIsLoading(false);
   }
@@ -50,7 +61,7 @@ const ExplorePage = () => {
 
   // Function to add recipe data to the backend
   async function addRecipe(recipe) {
-    const response = await fetch("http://localhost:3000/recipe", {
+    await fetch("http://localhost:3000/recipe", {
       method: "POST",
       body: JSON.stringify({
         id: recipe.id,
@@ -61,8 +72,6 @@ const ExplorePage = () => {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-    const json = await response.json();
-    console.log(json);
   }
 
   return (
@@ -77,7 +86,7 @@ const ExplorePage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-5">No results found!</h2>
+        <h2 className="mt-1 text-center">No results found!</h2>
       )}
     </div>
   );

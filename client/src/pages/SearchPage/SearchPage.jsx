@@ -5,12 +5,14 @@ import GridLayout from "../../components/GridLayout/GridLayout";
 import IngredientMenu from "../../components/IngredientMenu/IngredientMenu";
 import Searchbar from "../../components/SearchBar/Searchbar";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
 const SearchPage = () => {
   const { query } = useParams(); // Extract the search query
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { showAlert } = useAlert();
 
   // Fetch recipes
   useEffect(() => {
@@ -21,10 +23,19 @@ const SearchPage = () => {
       setRecipes([]);
       try {
         const response = await fetch(
-          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${SPOONACULAR_API_KEY}`
+          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=12&apiKey=${SPOONACULAR_API_KEY}`
         );
+        // Api daily limit reached
+        if (response.status === 402) {
+          showAlert(
+            "danger",
+            "API daily limit reached! Come back tomorrow!",
+            5000
+          );
+          setIsLoading(false);
+          return;
+        }
         const json = await response.json();
-        console.log(json);
         if (json.number > 0) {
           extractRecipesDetails(json.results);
         }
@@ -33,6 +44,7 @@ const SearchPage = () => {
       }
       setIsLoading(false);
     }
+
     // Function to extract recipe data
     function extractRecipesDetails(data) {
       const recipesData = data.map((recipeData) => {
@@ -47,26 +59,25 @@ const SearchPage = () => {
         addRecipe(recipe);
       });
     }
-
-    // Function to add recipe data to the backend
-    async function addRecipe(recipe) {
-      const response = await fetch("http://localhost:3000/recipe", {
-        method: "POST",
-        body: JSON.stringify({
-          id: recipe.id,
-          image: recipe.image,
-          name: recipe.name,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-      const json = await response.json();
-      console.log(json);
-    }
-
     fetchRecipes();
-  }, [query]);
+  }, [query, showAlert]);
+
+  // Function to add recipe data to the backend
+  async function addRecipe(recipe) {
+    const response = await fetch("http://localhost:3000/recipe", {
+      method: "POST",
+      body: JSON.stringify({
+        id: recipe.id,
+        image: recipe.image,
+        name: recipe.name,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+  }
 
   return (
     <div className="search-page-container">
@@ -81,7 +92,7 @@ const SearchPage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-5">No results found!</h2>
+        <h2 className="mt-4">No results found!</h2>
       )}
     </div>
   );
