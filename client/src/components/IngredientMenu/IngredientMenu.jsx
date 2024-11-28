@@ -4,7 +4,7 @@ import Select from "react-select";
 
 const IngredientMenu = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [options, setOptions] = useState([
+  const [options /*setOptions*/] = useState([
     { value: 1, label: "Chicken" },
     { value: 2, label: "Fish" },
     { value: 3, label: "Apple" },
@@ -15,12 +15,12 @@ const IngredientMenu = () => {
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
   };
-
+  /*
   // Function to fetch possible options available
   const fetchOptions = () => {
     setOptions([]);
   };
-
+*/
   return (
     <div>
       <Select

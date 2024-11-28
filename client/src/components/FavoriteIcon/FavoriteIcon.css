@@ -1,0 +1,7 @@
+.favorite-icon {
+  font-size: 2em;
+}
+
+.favorite-icon.bi-star-fill {
+  color: gold;
+}

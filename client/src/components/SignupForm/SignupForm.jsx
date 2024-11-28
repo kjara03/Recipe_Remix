@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SignupForm.css";
 import useAlert from "../../context/AlertContext";
 import { Filter } from "bad-words";

@@ -1,8 +1,5 @@
-import { useState } from "react";
 import "./AccountInfo.css";
-import { Link } from "react-router-dom";
 import img from "../../assets/tempprofilepic.jpeg";
-// import img from '.../assets/TempProfilePic.jpeg'
 
 const AccountInfo = () => {
   return (

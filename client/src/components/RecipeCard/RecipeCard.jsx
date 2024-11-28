@@ -8,7 +8,7 @@ const RecipeCard = (props) => {
   return (
     <div className="card border-dark mb-3 recipe-card">
       <img
-        src={image}
+        src={image || errorImage}
         className="card-img-top recipe-image"
         alt={name}
         onError={(event) => {
@@ -27,7 +27,7 @@ const RecipeCard = (props) => {
 
 RecipeCard.propTypes = {
   id: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
 };
 
