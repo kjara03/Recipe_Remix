@@ -29,7 +29,7 @@ const RecipeDisplay = (props) => {
       <div className="recipe-display-header">
         <img
           className="recipe-display-img"
-          src={image}
+          src={image || errorImage}
           alt={name}
           onError={(event) => {
             event.target.src = errorImage;

@@ -38,25 +38,38 @@ const RecipePage = () => {
       }
       setIsLoading(false);
     }
+
+    // Function to extract the necessary recipe details
+    async function extractRecipeDetails(data) {
+      let image;
+      // The api call doesn't guaranteed an image data is available and when it is not available then retrieve from the database
+      if (!data.image) {
+        const response = await fetch(`/api/recipe/${id}`);
+        // If the recipe is empty then an empty string is passed to the recipe
+        if (response.status === 404) {
+          image = "";
+        } else {
+          const json = await response.json();
+          image = json.data.image;
+        }
+      }
+      setRecipe({
+        cookTime: data.readyInMinutes,
+        cuisineType: data.cuisines,
+        dietLabels: data.diets,
+        dishTypes: data.dishTypes,
+        image: data.image || image,
+        ingredients: data.extendedIngredients,
+        instructions: data.analyzedInstructions,
+        name: data.title,
+        nutrients: data.nutrition,
+        servings: data.servings,
+        url: data.sourceUrl,
+      });
+    }
+
     fetchRecipeById();
   }, [id, showAlert]);
-
-  // Function to extract the necessary recipe details
-  function extractRecipeDetails(data) {
-    setRecipe({
-      cookTime: data.readyInMinutes,
-      cuisineType: data.cuisines,
-      dietLabels: data.diets,
-      dishTypes: data.dishTypes,
-      image: data.image,
-      ingredients: data.extendedIngredients,
-      instructions: data.analyzedInstructions,
-      name: data.title,
-      nutrients: data.nutrition,
-      servings: data.servings,
-      url: data.sourceUrl,
-    });
-  }
 
   return (
     <div>

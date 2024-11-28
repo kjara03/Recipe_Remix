@@ -23,7 +23,7 @@ const SearchPage = () => {
       setRecipes([]);
       try {
         const response = await fetch(
-          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=12&apiKey=${SPOONACULAR_API_KEY}`
+          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=1&addRecipeInformation=true&apiKey=${SPOONACULAR_API_KEY}`
         );
         // Api daily limit reached
         if (response.status === 402) {
@@ -64,7 +64,7 @@ const SearchPage = () => {
 
   // Function to add recipe data to the backend
   async function addRecipe(recipe) {
-    const response = await fetch("http://localhost:3000/recipe", {
+    await fetch("http://localhost:3000/recipe", {
       method: "POST",
       body: JSON.stringify({
         id: recipe.id,
@@ -75,8 +75,6 @@ const SearchPage = () => {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-    const json = await response.json();
-    console.log(json);
   }
 
   return (
