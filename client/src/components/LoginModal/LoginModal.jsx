@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./LoginModal.css";
 import useAlert from "../../context/AlertContext";
 import { useCookies } from "react-cookie";
@@ -52,7 +52,7 @@ const LoginModal = () => {
       });
       showAlert("success", "Account verifed!");
     } catch (error) {
-      showAlert("danger", "error.message", 5000);
+      showAlert("danger", error.message, 5000);
       console.log("An error occurred:", error.message);
     }
   }
