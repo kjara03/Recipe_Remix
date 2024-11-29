@@ -35,3 +35,20 @@ export async function getRecipeByIds(ids) {
     return error;
   }
 }
+
+// Check if a recipe exist in the table
+export async function isRecipeEntryPresent(id) {
+  try {
+    const isEntryInTable = await supabase
+      .from("Recipe")
+      .select("*")
+      .eq("id", id);
+    // If the query contain data then it means it is already in entry table
+    if (isEntryInTable.data.length > 0) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    return error;
+  }
+}

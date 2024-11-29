@@ -1,5 +1,9 @@
 import express from "express";
-import { createRecipe, getRecipeById } from "../controller/recipe.js";
+import {
+  createRecipe,
+  getRecipeById,
+  isRecipeEntryPresent,
+} from "../controller/recipe.js";
 
 const router = express.Router();
 
@@ -7,6 +11,11 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { id, name, image } = req.body; // Extract the details
   try {
+    // If entry is already there then send an ok response
+    const isRecipeInTable = await isRecipeEntryPresent(id);
+    if (isRecipeInTable) {
+      return res.status(200).json({ message: "Recipe already added!" });
+    }
     const recipe = await createRecipe(id, name, image);
     if (recipe.error) {
       return res.status(recipe.status).json({ message: recipe.error.message });

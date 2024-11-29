@@ -11,7 +11,7 @@ const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [queryParams] = useSearchParams();
-  const ingredient = queryParams.get("ingredients")?.split(",").join(",+");
+  const ingredients = queryParams.get("ingredients")?.split(",").join(",+");
   const recipe = queryParams.get("recipe");
   const { showAlert } = useAlert();
 
@@ -25,7 +25,7 @@ const SearchPage = () => {
       try {
         if (recipe) {
           const response = await fetch(
-            `https://api.spoonacular.com/recipes/complexSearch?query=${recipe}&number=20&apiKey=${SPOONACULAR_API_KEY}`
+            `https://api.spoonacular.com/recipes/complexSearch?query=${recipe}&number=12&apiKey=${SPOONACULAR_API_KEY}`
           );
           // Api daily limit reached
           if (response.status === 402) {
@@ -43,7 +43,7 @@ const SearchPage = () => {
           }
         } else {
           const response = await fetch(
-            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&number=12&ranking=1&apiKey=${SPOONACULAR_API_KEY}`
+            `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=12&ranking=1&apiKey=${SPOONACULAR_API_KEY}`
           );
           // Api daily limit reached
           if (response.status === 402) {
@@ -97,7 +97,7 @@ const SearchPage = () => {
     }
 
     fetchRecipes();
-  }, [ingredient, recipe, showAlert]);
+  }, [ingredients, recipe, showAlert]);
 
   return (
     <div className="search-page-container">
