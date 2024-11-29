@@ -55,7 +55,7 @@ const LoginModal = () => {
       setPassword("");
       showAlert("success", "Account verifed!");
     } catch (error) {
-      showAlert("danger", "error.message", 5000);
+      showAlert("danger", error.message, 5000);
       console.log("An error occurred:", error.message);
     }
   }
