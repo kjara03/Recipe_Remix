@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ message: "Failed to create recipe", error: error.message });
+      .json({ message: "Failed to create recipe!", error: error.message });
   }
 });
 
@@ -26,13 +26,13 @@ router.get("/:id", async (req, res) => {
     const recipe = await getRecipeById(id);
     // Return a message if recipe cannot be found with the recipe id
     if (recipe.error) {
-      return res.status(404).json({ message: "Recipe not found" });
+      return res.status(404).json({ message: "Recipe not found!" });
     }
     return res.status(200).json(recipe);
   } catch (error) {
     return res
       .status(400)
-      .json({ message: "Failed to retrieve recipe", error: error.message });
+      .json({ message: "Failed to retrieve recipe!", error: error.message });
   }
 });
 

@@ -16,3 +16,7 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.recipe-image {
+  aspect-ratio: 3 / 2;
+}

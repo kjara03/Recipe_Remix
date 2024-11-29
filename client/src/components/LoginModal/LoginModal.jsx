@@ -6,8 +6,8 @@ import { useCookies } from "react-cookie";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { showAlert } = useAlert();
   const [cookies, setCookies] = useCookies(["jwt_token"]);
+  const { showAlert } = useAlert();
 
   // Function to update email input
   function updateEmail(event) {
@@ -50,6 +50,9 @@ const LoginModal = () => {
         secure: true,
         sameSite: "Strict",
       });
+      // Remove the state and login modal
+      setEmail("");
+      setPassword("");
       showAlert("success", "Account verifed!");
     } catch (error) {
       showAlert("danger", error.message, 5000);
