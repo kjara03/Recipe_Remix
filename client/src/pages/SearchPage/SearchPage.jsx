@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./SearchPage.css";
 import { useParams } from "react-router-dom";
 import GridLayout from "../../components/GridLayout/GridLayout";
-import IngredientMenu from "../../components/IngredientMenu/IngredientMenu";
 import Searchbar from "../../components/SearchBar/Searchbar";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
@@ -74,9 +73,6 @@ const SearchPage = () => {
       <Searchbar />
       {recipes.length > 0 ? (
         <div>
-          <div className="mt-3 mb-3">
-            <IngredientMenu />
-          </div>
           <GridLayout recipes={recipes} />
         </div>
       ) : isLoading ? (

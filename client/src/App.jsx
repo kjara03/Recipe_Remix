@@ -11,7 +11,6 @@ import Alert from "./components/Alert/Alert";
 import Navbar from "./components/Navbar/Navbar";
 import AlertProvider from "./context/AlertProvider";
 import AuthProvider from "./context/AuthProvider";
-import IngredientMenu from "./components/IngredientMenu/IngredientMenu";
 import { CookiesProvider } from "react-cookie";
 
 const App = () => {
@@ -23,7 +22,6 @@ const App = () => {
             <Alert />
             <Router>
               <Navbar />
-              <IngredientMenu />
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/search/:query" element={<SearchPage />}></Route>
