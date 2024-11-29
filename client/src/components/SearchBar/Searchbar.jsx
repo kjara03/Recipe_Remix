@@ -149,7 +149,7 @@ const Searchbar = () => {
     // Handle regular recipe search
     if (isRecipeMode) {
       if (searchInput.trim().length > 2) {
-        navigate(`/search/${searchInput.trim()}`);
+        navigate(`/search/recipe?recipe=${searchInput.trim()}`);
       } else {
         showAlert("warning", "Enter at least 3 characters!");
         return;
@@ -157,7 +157,9 @@ const Searchbar = () => {
       setSearchInput("");
     } else {
       if (selectedIngredients.length > 0) {
-        const ingredients = selectedIngredients.join(",+");
+        const ingredients = selectedIngredients.map(
+          (ingredient) => ingredient.label
+        );
         navigate(`/search/ingredients?ingredients=${ingredients}`);
       } else {
         showAlert("warning", "Enter at least one ingredient!");

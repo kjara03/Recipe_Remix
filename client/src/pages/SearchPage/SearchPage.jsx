@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import "./SearchPage.css";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import Searchbar from "../../components/SearchBar/Searchbar";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
 const SearchPage = () => {
-  const { query } = useParams(); // Extract the search query
+  const [queryParams] = useSearchParams();
+  const ingredient = queryParams.get("ingredients")?.split(",").join(",+");
+  const recipe = queryParams.get("recipe");
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch recipes
   useEffect(() => {
     fetchRecipes();
-  }, [query]);
+  }, [ingredient, recipe]);
 
   // Function to search for recipes using the api after it detects a search parameter
   async function fetchRecipes() {
@@ -22,13 +24,24 @@ const SearchPage = () => {
     setIsLoading(true);
     setRecipes([]);
     try {
-      const response = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=20&apiKey=${SPOONACULAR_API_KEY}`
-      );
-      const json = await response.json();
-      console.log(json);
-      if (json.number > 0) {
-        extractRecipesDetails(json.results);
+      if (recipe) {
+        const response = await fetch(
+          `https://api.spoonacular.com/recipes/complexSearch?query=${recipe}&number=20&apiKey=${SPOONACULAR_API_KEY}`
+        );
+        const json = await response.json();
+        console.log(json);
+        if (json.number > 0) {
+          extractRecipesDetails(json.results);
+        }
+      } else {
+        const response = await fetch(
+          `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&number=12&ranking=1&apiKey=${SPOONACULAR_API_KEY}`
+        );
+        const json = await response.json();
+        console.log(json);
+        if (json.length > 0) {
+          extractRecipesDetails(json);
+        }
       }
     } catch (error) {
       alert(error);
@@ -72,7 +85,7 @@ const SearchPage = () => {
     <div className="search-page-container">
       <Searchbar />
       {recipes.length > 0 ? (
-        <div>
+        <div className="mt-3">
           <GridLayout recipes={recipes} />
         </div>
       ) : isLoading ? (
