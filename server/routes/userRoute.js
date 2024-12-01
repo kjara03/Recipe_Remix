@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../controller/user.js";
+import { createUser, getUserByEmail, updatePassword } from "../controller/user.js";
 import { verifyToken } from "../middleware/authentication.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
@@ -77,6 +77,20 @@ router.get("/authentication", verifyToken, (req, res) => {
     message: "Authenticated",
     user: req.user,
   });
+});
+
+router.get("/changepass", async (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
+  try {
+    const user = await getUserByEmail(email);
+    const passwordMatch = await argon2.verify(user.data.password, oldPassword);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid email or password!" });
+    }
+    const change = await updatePassword(newPassword);
+  } catch (error) {
+
+  }
 });
 
 export default router;

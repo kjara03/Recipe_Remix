@@ -6,6 +6,8 @@ import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import useAuth from "../../context/AuthContext";
+
+
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -58,6 +60,9 @@ const Navbar = () => {
               </Link>
               <Link className="navbar-link" to="/favorites">
                 Favorites
+              </Link>
+              <Link className="navbar-link" to="/account">
+                Account
               </Link>
               <Link className="navbar-link" to="/about">
                 About

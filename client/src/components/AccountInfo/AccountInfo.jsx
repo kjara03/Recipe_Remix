@@ -1,7 +1,15 @@
 import "./AccountInfo.css";
 import img from "../../assets/tempprofilepic.jpeg";
+import { useState } from "react";
+import useAlert from "../../context/AlertContext";
 
 const AccountInfo = () => {
+
+    /*async function changepass(event) {
+      event.preventDefault();
+
+    }*/
+  
   return (
     <div className="container border extraPadding" id="Profile">
       <div className="row extraPadding">
@@ -26,10 +34,15 @@ const AccountInfo = () => {
         </div>
       </div>
       <div className="row justify-content-md-center extraPadding">
-        <button type="button" className="btn btn-outline-secondary col-4">
-          {" "}
-          Reset your Password{" "}
-        </button>
+          <button 
+            type="button" 
+            className="btn changepass-button"
+            data-bs-toggle="modal"
+            data-bs-target="#changepass-modal"
+          >
+            {" "}
+            Reset your Password{" "}
+          </button>
       </div>
     </div>
   );

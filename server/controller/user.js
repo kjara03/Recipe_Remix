@@ -35,3 +35,16 @@ export async function getUserByEmail(email) {
     return error;
   }
 }
+
+//Update user password
+export async function updatePassword(email, password) {
+  try {
+    const user = await supabase.from("User").select("*").eq("email", email).single();
+    const { error } = await supabase
+      .from("User")
+      .update({password: password })
+      .eq("email", email);
+  } catch (error) {
+    return error;
+  }
+}
