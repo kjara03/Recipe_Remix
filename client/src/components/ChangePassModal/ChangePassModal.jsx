@@ -1,12 +1,21 @@
 import "./ChangePassModal.css";
 import { useState } from "react";
 import useAuth from "../../context/AuthContext";
+import useAlert from "../../context/AlertContext";
+
 
 const ChangePassModal = () => {
+  const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const { user } = useAuth();
+  const { showAlert } = useAlert();
+  
+  // Function to update email input
+  function updateEmail(event) {
+    setEmail(event.target.value);
+  }
 
   // Function to update old password input
   function updateOldPassword(event) {
@@ -58,17 +67,22 @@ const ChangePassModal = () => {
     event.preventDefault();
     if (validatePassword() && (newPassword == newPasswordCheck)) {
         try {
-            const response = await fetch("/api/user/changepass", {
-                method: "POST",
-                body: JSON.stringify({
-					        email: user.email,
-                  oldPassword: oldPassword,
-					        newPassword: newPassword
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                },
-                });
+          const response = await fetch("/api/user/changepass", {
+            method: "POST",
+            body: JSON.stringify({
+					    email: email,
+              oldPassword: oldPassword,
+					    newPassword: newPassword
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          setEmail("");
+          setOldPassword("");
+          setNewPassword("");
+          setNewPasswordCheck("");
+          showAlert("success", "Password Change!");
         } catch (error) {
             showAlert("danger", error.message, 5000);
             console.log("An error occurred:", error.message);
@@ -99,6 +113,21 @@ const ChangePassModal = () => {
           </div>
           <div className="modal-body">
             <form onSubmit={setpass}>
+            <div className="mb-2">
+                <label htmlFor="signup-email" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="changepass-email"
+                  placeholder="Enter your email"
+                  onChange={updateEmail}
+                  value={email}
+                  maxLength="320"
+                  required
+                />
+              </div>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">
                   Current password

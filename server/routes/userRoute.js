@@ -54,6 +54,31 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Change user password
+router.post("/changepass", async (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
+  try {
+    const user = await getUserByEmail(email);
+    if (user.error) {
+      return res.status(user.status).json({ message: user.error.message });
+    }
+    const passwordMatch = await argon2.verify(user.data.password, oldPassword);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid email or password!" });
+    }
+    const hash = await argon2.hash(newPassword);
+    const change = await updatePassword(email, hash);
+    
+    if (change.error) {
+      return res.status(user.status).json({ message: user.error.message });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Failed to update password!", error: error.message });
+  }
+});
+
 // Get user based on id
 /*
 router.get("/:id", async (req, res) => {
@@ -79,18 +104,6 @@ router.get("/authentication", verifyToken, (req, res) => {
   });
 });
 
-router.get("/changepass", async (req, res) => {
-  const { email, oldPassword, newPassword } = req.body;
-  try {
-    const user = await getUserByEmail(email);
-    const passwordMatch = await argon2.verify(user.data.password, oldPassword);
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid email or password!" });
-    }
-    const change = await updatePassword(newPassword);
-  } catch (error) {
 
-  }
-});
 
 export default router;

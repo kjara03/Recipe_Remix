@@ -36,15 +36,18 @@ export async function getUserByEmail(email) {
   }
 }
 
-//Update user password
+// Update the password for the user based on the email
 export async function updatePassword(email, password) {
   try {
-    const user = await supabase.from("User").select("*").eq("email", email).single();
-    const { error } = await supabase
+    const user = await supabase
       .from("User")
       .update({password: password })
-      .eq("email", email);
+      .eq("email", email)
+      //.limit(1);
+      //.single();
+    return user;
   } catch (error) {
     return error;
   }
 }
+
