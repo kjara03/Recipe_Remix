@@ -37,12 +37,12 @@ export async function getUserByEmail(email) {
 }
 
 // Update the password for the user based on the email
-export async function updatePassword(email, password) {
+export async function updatePassword(userid, password) {
   try {
     const user = await supabase
       .from("User")
       .update({password: password })
-      .eq("email", email)
+      .eq("id", userid)   
       //.limit(1);
       //.single();
     return user;

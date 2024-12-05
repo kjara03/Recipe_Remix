@@ -5,17 +5,12 @@ import useAlert from "../../context/AlertContext";
 
 
 const ChangePassModal = () => {
-  const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordCheck, setNewPasswordCheck] = useState("");
   const { user } = useAuth();
   const { showAlert } = useAlert();
   
-  // Function to update email input
-  function updateEmail(event) {
-    setEmail(event.target.value);
-  }
 
   // Function to update old password input
   function updateOldPassword(event) {
@@ -65,12 +60,12 @@ const ChangePassModal = () => {
   // Function to change password
   async function setpass(event) {
     event.preventDefault();
-    if (validatePassword() && (newPassword == newPasswordCheck)) {
+    if (validatePassword()) {
         try {
           const response = await fetch("/api/user/changepass", {
             method: "POST",
             body: JSON.stringify({
-					    email: email,
+					    userid: user.userid,
               oldPassword: oldPassword,
 					    newPassword: newPassword
             }),
@@ -78,7 +73,6 @@ const ChangePassModal = () => {
               "Content-type": "application/json; charset=UTF-8",
             },
           });
-          setEmail("");
           setOldPassword("");
           setNewPassword("");
           setNewPasswordCheck("");
@@ -113,21 +107,6 @@ const ChangePassModal = () => {
           </div>
           <div className="modal-body">
             <form onSubmit={setpass}>
-            <div className="mb-2">
-                <label htmlFor="signup-email" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="changepass-email"
-                  placeholder="Enter your email"
-                  onChange={updateEmail}
-                  value={email}
-                  maxLength="320"
-                  required
-                />
-              </div>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">
                   Current password

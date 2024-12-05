@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserByEmail, updatePassword } from "../controller/user.js";
+import { createUser, getUserByEmail, getUserById, updatePassword } from "../controller/user.js";
 import { verifyToken } from "../middleware/authentication.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
@@ -56,18 +56,15 @@ router.post("/login", async (req, res) => {
 
 // Change user password
 router.post("/changepass", async (req, res) => {
-  const { email, oldPassword, newPassword } = req.body;
+  const { userid, oldPassword, newPassword } = req.body;
   try {
-    const user = await getUserByEmail(email);
-    if (user.error) {
-      return res.status(user.status).json({ message: user.error.message });
-    }
+    const user = await getUserById(userid);
     const passwordMatch = await argon2.verify(user.data.password, oldPassword);
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid email or password!" });
     }
     const hash = await argon2.hash(newPassword);
-    const change = await updatePassword(email, hash);
+    const change = await updatePassword(userid, hash);
     
     if (change.error) {
       return res.status(user.status).json({ message: user.error.message });
