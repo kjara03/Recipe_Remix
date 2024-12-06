@@ -1,16 +1,14 @@
-import "./ChangePassModal.css";
+import "./PasswordChangeModal.css";
 import { useState } from "react";
 import useAuth from "../../context/AuthContext";
 import useAlert from "../../context/AlertContext";
 
-
-const ChangePassModal = () => {
+const PasswordChangeModal = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [newPasswordCheck, setNewPasswordCheck] = useState("");
+  const [secondaryPassword, setSecondaryPassword] = useState("");
   const { user } = useAuth();
   const { showAlert } = useAlert();
-  
 
   // Function to update old password input
   function updateOldPassword(event) {
@@ -22,13 +20,21 @@ const ChangePassModal = () => {
     setNewPassword(event.target.value);
   }
 
-  // Function to update new password check input
-  function updateNewPasswordCheck(event) {
-    setNewPasswordCheck(event.target.value);
+  // Function to update secondary password check input
+  function updateSecondaryPassword(event) {
+    setSecondaryPassword(event.target.value);
   }
 
   // Function to ensure password is strong enough
   function validatePassword() {
+    if (newPassword !== secondaryPassword) {
+      showAlert("warning", "Passwords should be the same!");
+      return false;
+    }
+    if (newPassword === oldPassword) {
+      showAlert("warning", "New passwords should be the different!");
+      return false;
+    }
     if (!/[a-z]/.test(newPassword)) {
       showAlert(
         "warning",
@@ -57,39 +63,44 @@ const ChangePassModal = () => {
     return true;
   }
 
-  // Function to change password
-  async function setpass(event) {
+  // Function to change the password
+  async function changePassword(event) {
     event.preventDefault();
     if (validatePassword()) {
-        try {
-          const response = await fetch("/api/user/changepass", {
-            method: "POST",
-            body: JSON.stringify({
-					    userid: user.userid,
-              oldPassword: oldPassword,
-					    newPassword: newPassword
-            }),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          });
+      try {
+        const response = await fetch("/api/user/changepassword", {
+          method: "POST",
+          body: JSON.stringify({
+            userid: user.userid,
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+        if (response.ok) {
           setOldPassword("");
           setNewPassword("");
-          setNewPasswordCheck("");
-          showAlert("success", "Password Change!");
-        } catch (error) {
-            showAlert("danger", error.message, 5000);
-            console.log("An error occurred:", error.message);
+          setSecondaryPassword("");
+          showAlert("success", "Password updated!");
+        } else {
+          const json = await response.json();
+          showAlert("danger", json.message, 5000);
         }
+      } catch (error) {
+        showAlert("danger", error.message, 5000);
+        console.log(error);
+      }
     }
   }
 
   return (
     <div
       className="modal fade"
-      id="changepass-modal"
+      id="password-change-modal"
       tabIndex="-1"
-      aria-labelledby="signup1-modal-label"
+      aria-labelledby="password-change-modal-label"
       aria-hidden="true"
     >
       <div className="modal-dialog">
@@ -106,7 +117,7 @@ const ChangePassModal = () => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={setpass}>
+            <form onSubmit={changePassword}>
               <div className="mb-2">
                 <label htmlFor="signup-email" className="form-label">
                   Current password
@@ -114,11 +125,12 @@ const ChangePassModal = () => {
                 <input
                   type="password"
                   className="form-control"
-                  id="changepass-oldpass"
+                  id="old-password-input"
                   placeholder="Enter your current password"
                   onChange={updateOldPassword}
                   value={oldPassword}
-                  maxLength="320"
+                  minLength="6"
+                  maxLength="128"
                   required
                 />
               </div>
@@ -129,7 +141,7 @@ const ChangePassModal = () => {
                 <input
                   type="password"
                   className="form-control"
-                  id="changepass-newpass"
+                  id="new-password-input"
                   placeholder="Enter your new password"
                   onChange={updateNewPassword}
                   value={newPassword}
@@ -145,15 +157,16 @@ const ChangePassModal = () => {
                 <input
                   type="password"
                   className="form-control"
-                  id="changepass-newpass"
+                  id="secondary-password-input"
                   placeholder="Retype your new password"
-                  onChange={updateNewPasswordCheck}
-                  value={newPasswordCheck}
-                  maxLength="100"
+                  onChange={updateSecondaryPassword}
+                  value={secondaryPassword}
+                  minLength="6"
+                  maxLength="128"
                   required
                 />
               </div>
-              <button type="submit" className="btn changepass-button">
+              <button type="submit" className="btn btn-outline-black">
                 Change
               </button>
             </form>
@@ -162,7 +175,6 @@ const ChangePassModal = () => {
       </div>
     </div>
   );
-
 };
 
-export default ChangePassModal;
+export default PasswordChangeModal;

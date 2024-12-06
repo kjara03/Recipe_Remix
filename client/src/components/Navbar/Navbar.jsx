@@ -7,7 +7,6 @@ import SignupButton from "../SignupButton/SignupButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import useAuth from "../../context/AuthContext";
 
-
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -61,23 +60,22 @@ const Navbar = () => {
               <Link className="navbar-link" to="/favorites">
                 Favorites
               </Link>
-              <Link className="navbar-link" to="/account">
-                Account
-              </Link>
-              <Link className="navbar-link" to="/about">
-                About
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link className="navbar-link" to="/account">
+                    Account
+                  </Link>
+                  <div className="d-flex justify-content-center align-items-center gap-3">
+                    <LogoutButton />
+                  </div>
+                </>
+              ) : (
+                <div className="d-flex justify-content-center align-items-center gap-3">
+                  <LoginButton />
+                  <SignupButton />
+                </div>
+              )}
             </div>
-            {isAuthenticated ? (
-              <div className="d-flex justify-content-center align-items-center gap-3">
-                <LogoutButton />
-              </div>
-            ) : (
-              <div className="d-flex justify-content-center align-items-center gap-3">
-                <LoginButton />
-                <SignupButton />
-              </div>
-            )}
           </div>
         </div>
       </nav>
