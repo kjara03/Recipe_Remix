@@ -1,5 +1,10 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../controller/user.js";
+import {
+  createUser,
+  getUserByEmail,
+  getUserById,
+  updatePassword,
+} from "../controller/user.js";
 import { verifyToken } from "../middleware/authentication.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
@@ -51,6 +56,28 @@ router.post("/login", async (req, res) => {
     res
       .status(400)
       .json({ message: "Failed to retrieve user!", error: error.message });
+  }
+});
+
+// Change user password
+router.post("/changepassword", async (req, res) => {
+  const { userid, oldPassword, newPassword } = req.body;
+  try {
+    const user = await getUserById(userid);
+    const passwordMatch = await argon2.verify(user.data.password, oldPassword);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid password!" });
+    }
+    const hash = await argon2.hash(newPassword);
+    const change = await updatePassword(userid, hash);
+    if (change.error) {
+      return res.status(user.status).json({ message: user.error.message });
+    }
+    return res.status(200).json({ message: "Password changed successfully!" });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Failed to update password!", error: error.message });
   }
 });
 

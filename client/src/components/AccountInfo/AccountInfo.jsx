@@ -1,14 +1,15 @@
 import "./AccountInfo.css";
-import img from "../../assets/tempprofilepic.jpeg";
+import profile from "../../assets/tempprofilepic.jpeg";
+import { Link } from "react-router-dom";
 
 const AccountInfo = () => {
   return (
-    <div className="container border extraPadding" id="Profile">
-      <div className="row extraPadding">
-        <div className="col-4" id="ProfilePic">
-          <img src={img} className="img-fluid border" alt="" />
+    <div className="container border">
+      <div className="row">
+        <div className="col-4 profile-picture">
+          <img src={profile} className="img-fluid border" alt="" />
         </div>
-        <div className="col-8" id="AccountNameBio">
+        <div className="col-8 account-bio">
           <p>Name: John Doe</p>
           <p>
             Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -19,17 +20,20 @@ const AccountInfo = () => {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
-          <button type="button" className="btn btn-outline-success">
-            {" "}
-            Your Favorite Recipes{" "}
-          </button>
         </div>
       </div>
-      <div className="row justify-content-md-center extraPadding">
-        <button type="button" className="btn btn-outline-secondary col-4">
-          {" "}
-          Reset your Password{" "}
+      <div className="d-flex justify-content-between align-items-center">
+        <button
+          type="button"
+          className="btn changepass-button btn-outline-black"
+          data-bs-toggle="modal"
+          data-bs-target="#password-change-modal"
+        >
+          Reset your Password
         </button>
+        <Link className="btn btn-outline-black" to="/favorites">
+          Your Favorite Recipes
+        </Link>
       </div>
     </div>
   );
