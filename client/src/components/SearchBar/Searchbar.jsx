@@ -208,7 +208,7 @@ const Searchbar = () => {
                 id="search-input"
                 type="search"
                 className="form-control"
-                placeholder="Search for recipes"
+                placeholder="Search for recipes..."
                 minLength="3"
                 maxLength="50"
                 value={searchInput}

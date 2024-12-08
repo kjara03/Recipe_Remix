@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const AccountInfo = () => {
   return (
-    <div className="container border">
+    <div className="container border main-card">
       <div className="row">
         <div className="col-4 profile-picture">
           <img src={profile} className="img-fluid border" alt="" />
@@ -25,13 +25,13 @@ const AccountInfo = () => {
       <div className="d-flex justify-content-between align-items-center">
         <button
           type="button"
-          className="btn changepass-button btn-outline-black"
+          className="btn changepass-button"
           data-bs-toggle="modal"
           data-bs-target="#password-change-modal"
         >
           Reset your Password
         </button>
-        <Link className="btn btn-outline-black" to="/favorites">
+        <Link className="btn fav-button" to="/favorites">
           Your Favorite Recipes
         </Link>
       </div>

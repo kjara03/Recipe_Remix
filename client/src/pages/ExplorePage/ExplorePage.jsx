@@ -1,3 +1,4 @@
+import "./ExplorePage.css";
 import { useState, useEffect } from "react";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
@@ -77,7 +78,7 @@ const ExplorePage = () => {
   return (
     <div className="explore-page-container">
       <div className="mt-3 mb-3 text-center ">
-        <button className="btn btn-secondary" onClick={fetchRandomRecipes}>
+        <button className="btn btn-secondary random-button" onClick={fetchRandomRecipes}>
           Get random recipes
         </button>
       </div>
