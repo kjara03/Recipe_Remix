@@ -54,7 +54,6 @@ Recipe Remix is a full-stack application designed to help users discover meals t
 ## Run the app
 
 10. **Run app in main folder**
-
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
