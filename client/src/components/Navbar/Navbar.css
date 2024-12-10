@@ -1,13 +1,12 @@
 /* Navbar General Styling */
 .navbar {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding: 0.5em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.logo{
-  height: 75px;
-
+.logo {
+  height: 60px;
 }
 
 /* Navbar Links */
@@ -25,7 +24,7 @@
 
 .navbar-link:hover {
   color: #ff6699 !important; /* Change text color on hover */
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
 
 .icon {

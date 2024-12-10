@@ -1,16 +1,16 @@
-.random-button{
-    background-color: #FFA726;
-    color: white;
-    border-radius: 10px; /* Rounded edges */
-    border: none;
-    font-family: "Sour Gummy", sans-serif; 
-    font-size: 1rem; /* Increased size */
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    border-radius: 10px;
-    margin: 1em;
+.random-button {
+  background-color: #ffa726;
+  color: white;
+  border-radius: 10px; /* Rounded edges */
+  border: none;
+  font-family: "Sour Gummy", sans-serif;
+  font-size: 1rem; /* Increased size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px;
+  margin: 1em;
 }
 
-.random-button:hover{
-    background-color: #ff6699;
-    transform: scale(1.05);
+.random-button:hover {
+  background-color: #ff6699;
+  transform: scale(1.05);
 }
