@@ -6,8 +6,8 @@ import LoginButton from "../LoginButton/LoginButton";
 import SignupButton from "../SignupButton/SignupButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import useAuth from "../../context/AuthContext";
-
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
@@ -32,10 +32,10 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-xl navbar-light sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-light sticky-top">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            Recipe Remix
+            <img src={logo} className="logo" alt="" />
           </Link>
           <button
             className="navbar-toggler p-1"

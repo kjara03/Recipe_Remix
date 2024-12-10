@@ -1,16 +1,17 @@
 /* Login Button */
 .login-button {
-  background-color: #ff6699;
+  background-color: #ffa726;
   color: white;
   border-radius: 50px; /* Rounded edges */
   padding: 0.5rem 1.5rem;
   border: none;
+  font-family: "Sour Gummy", sans-serif;
   font-size: 1.2rem; /* Increased size */
   transition: background-color 0.3s ease, transform 0.3s ease;
   width: 7em;
 }
 
 .login-button:hover {
-  background-color: #ff3366;
+  background-color: #ff6699;
   transform: scale(1.05);
 }

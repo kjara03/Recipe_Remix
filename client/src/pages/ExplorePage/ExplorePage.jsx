@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./ExplorePage.css";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAlert from "../../context/AlertContext";
@@ -76,13 +77,16 @@ const ExplorePage = () => {
 
   return (
     <div className="explore-page-container">
-      <div className="mt-3 mb-3 text-center ">
-        <button className="btn btn-secondary" onClick={fetchRandomRecipes}>
-          Get random recipes
-        </button>
-      </div>
       {recipes.length > 0 ? (
-        <GridLayout recipes={recipes} />
+        <div className="mt-3 mb-3 text-center ">
+          <button
+            className="btn btn-secondary random-button"
+            onClick={fetchRandomRecipes}
+          >
+            Get random recipes
+          </button>
+          <GridLayout recipes={recipes} />
+        </div>
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (

@@ -19,7 +19,9 @@ const RecipeCard = (props) => {
         <h5 className="card-title">{name}</h5>
       </div>
       <Link className="card-link recipe-link" to={`/recipe/${id}`}>
-        Explore Recipe Guide
+        <button className="btn btn-primary card-button">
+          Explore Recipe Guide
+        </button>
       </Link>
     </div>
   );

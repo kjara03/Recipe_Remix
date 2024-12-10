@@ -1,17 +1,4 @@
-.recipe-card {
-  height: 100%;
-}
-
-.recipe-card-body {
-  text-align: center;
-  padding: 1em 0.4em 0em 0.4em;
-}
-
-.card-title {
-  font-family: "Sour Gummy", sans-serif;
-}
-
-.card-button {
+.random-button {
   background-color: #ffa726;
   color: white;
   border-radius: 10px; /* Rounded edges */
@@ -23,15 +10,7 @@
   margin: 1em;
 }
 
-.card-button:hover {
+.random-button:hover {
   background-color: #ff6699;
   transform: scale(1.05);
-}
-
-.recipe-link {
-  text-align: center;
-}
-
-.recipe-image {
-  aspect-ratio: 3 / 2;
 }

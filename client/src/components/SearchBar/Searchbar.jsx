@@ -208,7 +208,7 @@ const Searchbar = () => {
                 id="search-input"
                 type="search"
                 className="form-control"
-                placeholder="Search for recipes"
+                placeholder="Search for recipes..."
                 minLength="3"
                 maxLength="50"
                 value={searchInput}
@@ -225,6 +225,8 @@ const Searchbar = () => {
                 isMulti={true}
                 isSearchable={true}
                 placeholder="Select ingredients"
+                menuPlacement="auto"
+                maxMenuHeight="150"
               />
             )}
           </div>

@@ -7,10 +7,24 @@
 }
 
 .search-button {
+  background-color: #ffa726 !important;
+  color: white;
+  border-radius: 50px; /* Rounded edges */
+  padding: 0.5rem 1.5rem;
+  border: none;
+  font-family: "Sour Gummy", sans-serif;
+  font-size: 1.3rem; /* Increased size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 7em;
   border-radius: 50px;
   margin-top: 2em;
-  margin-left: 2em;
-  height: 4em;
+  margin-left: 1em;
+  height: 3em;
+}
+
+.search-button:hover {
+  background-color: #ff6699 !important;
+  transform: scale(1.05);
 }
 
 .search-input-container {
@@ -19,23 +33,51 @@
 }
 
 #search-input {
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 4px;
-  background-color: white;
+  font-size: 1.5rem;
+  border: 4px solid hsl(0, 0%, 80%);
+  border-color: #ffa726;
+  border-radius: 5px;
+  font-family: "Sour Gummy", sans-serif;
+  background: white url(../../assets/searchicon.png) right 0.5em center/contain
+    no-repeat;
+  background-size: 1em;
+}
+
+#search-input:not(:placeholder-shown),
+#search-input:focus {
+  background: white; /* Remove the icon when focused or input has text */
+}
+
+#search-input:not(:placeholder-shown),
+#search-input:focus {
+  border-color: #ff6699;
+  box-shadow: 0 0 0 1px #ff6699;
 }
 
 #ingredient-input {
+  border: 4px solid hsl(0, 0%, 80%);
+  border-color: #ffa726;
+  border-radius: 5px;
   width: 100%;
+  font-family: "Sour Gummy", sans-serif;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 576px) {
+  #search-input {
+    font-size: 1.1rem;
+  }
+  #ingredient-input {
+    font-size: 1.2rem;
+  }
+  .search-button {
+    font-size: 1.1rem;
+  }
 }
 
 #search-input::placeholder {
   color: hsl(0, 0%, 50%);
   opacity: 1;
-}
-
-#search-input:focus {
-  border-color: #2684ff;
-  box-shadow: 0 0 0 1px #2684ff;
 }
 
 .tabs-container {
@@ -47,21 +89,23 @@
 .tab {
   padding: 0.5em 1em;
   border: 1px solid #c5c5c5;
-  background-color: #f5f5f5;
-  border-radius: 10px 10px 0 0;
-  font-size: 0.9em;
-  color: #555;
+  background-color: #ffeb3b;
+  border-radius: 10px;
+  font-size: 1em;
+  color: black;
+  font-family: "Sour Gummy", sans-serif;
   transition: background-color 0.5s, box-shadow 0.5s, color 0.5s;
 }
 
 .tab:hover {
-  background-color: #e0e0e0;
+  background-color: #ff6699;
   color: #222;
 }
 
 .tab.selected {
-  background-color: #ffffff;
+  background-color: #ffa726;
   border-color: #aaa #aaa #ffffff;
   box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.15);
-  color: #111;
+  color: white;
+  font-size: 1.1em;
 }
