@@ -7,7 +7,7 @@ import SignupButton from "../SignupButton/SignupButton";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import useAuth from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logotext.png";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false); // Keep tracks if the navbar is expanded or not
