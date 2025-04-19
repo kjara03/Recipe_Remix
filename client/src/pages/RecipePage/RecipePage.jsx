@@ -80,7 +80,7 @@ const RecipePage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-5">No results found!</h2>
+        <h2 className="mt-4 text-center">No results found!</h2>
       )}
     </div>
   );
