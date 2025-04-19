@@ -34,8 +34,10 @@ router.post("/register", async (req, res) => {
 // Get user based on email
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     const user = await getUserByEmail(email);
+    console.log(user);
     if (user.error) {
       return res.status(user.status).json({ message: user.error.message });
     }

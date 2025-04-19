@@ -17,8 +17,7 @@ app.use("/user", userRouter);
 app.use("/favorite", favoriteRouter);
 app.use("/recipe", recipeRouter);
 
-
-const PORT = process.env.DB_PORT;
+const PORT = process.env.PORT;
 
 app.listen(PORT, async () => {
   console.log(`Server started on port ${PORT}`);

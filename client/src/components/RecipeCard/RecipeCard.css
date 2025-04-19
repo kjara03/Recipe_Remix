@@ -1,8 +1,11 @@
 .recipe-card {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-card-body {
+  flex-grow: 1;
   text-align: center;
   padding: 1em 0.4em 0em 0.4em;
 }
