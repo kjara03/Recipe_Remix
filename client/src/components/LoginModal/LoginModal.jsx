@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./LoginModal.css";
 import useAlert from "../../context/AlertContext";
 import { useCookies } from "react-cookie";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");

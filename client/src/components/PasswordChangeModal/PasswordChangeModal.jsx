@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAuth from "../../context/AuthContext";
 import useAlert from "../../context/AlertContext";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const PasswordChangeModal = () => {
   const [oldPassword, setOldPassword] = useState("");

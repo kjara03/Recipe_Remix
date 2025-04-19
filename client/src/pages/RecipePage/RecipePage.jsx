@@ -4,7 +4,7 @@ import RecipeDisplay from "../../components/RecipeDisplay/RecipeDisplay";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);

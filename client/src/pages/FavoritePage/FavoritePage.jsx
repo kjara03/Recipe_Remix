@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../context/AuthContext";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);

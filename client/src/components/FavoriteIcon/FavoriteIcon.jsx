@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./FavoriteIcon.css";
 import useAuth from "../../context/AuthContext";
 import useAlert from "../../context/AlertContext";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const FavoriteIcon = () => {
   const [isFavorite, setIsFavorite] = useState(false);

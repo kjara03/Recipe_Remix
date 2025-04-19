@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { AuthContext } from "./AuthContext";
 import PropTypes from "prop-types";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const AuthProvider = ({ children }) => {
   // eslint-disable-next-line no-unused-vars

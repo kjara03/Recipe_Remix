@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./SignupForm.css";
 import useAlert from "../../context/AlertContext";
 import { Filter } from "bad-words";
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
