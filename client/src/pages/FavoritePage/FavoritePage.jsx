@@ -24,7 +24,7 @@ const FavoritePage = () => {
   }, [user]);
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 text-center">
       {isLoading ? (
         <LoadingSpinner />
       ) : user ? (
@@ -35,10 +35,10 @@ const FavoritePage = () => {
             <GridLayout recipes={favorites} />
           </>
         ) : (
-          <h2 className="text-center">You have no favorite recipes yet.</h2>
+          <h2>You have no favorite recipes yet.</h2>
         )
       ) : (
-        <h2 className="text-center">Log in to see your favorite recipes!</h2>
+        <h2>Log in to see your favorite recipes!</h2>
       )}
     </div>
   );

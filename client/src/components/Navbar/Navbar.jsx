@@ -28,6 +28,8 @@ const Navbar = () => {
     if (backdrop) {
       backdrop.remove();
     }
+    document.body.classList.remove("modal-open");
+    document.body.style.overflow = "";
   }
 
   return (

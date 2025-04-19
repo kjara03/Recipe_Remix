@@ -79,7 +79,7 @@ const ExplorePage = () => {
   return (
     <div className="explore-page-container">
       {recipes.length > 0 ? (
-        <div className="mt-3 mb-3 text-center ">
+        <div className="mt-3 mb-3 text-center">
           <button
             className="btn btn-secondary random-button"
             onClick={fetchRandomRecipes}
@@ -91,7 +91,7 @@ const ExplorePage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-1 text-center">No results found!</h2>
+        <h2 className="mt-4 text-center">No results found!</h2>
       )}
     </div>
   );
