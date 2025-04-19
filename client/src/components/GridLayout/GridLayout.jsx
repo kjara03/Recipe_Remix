@@ -8,12 +8,16 @@ const GridLayout = ({ recipes }) => {
       {recipes && recipes.length > 0 && (
         <div className="container">
           <div className="row justify-content-center">
-            {recipes.map((card, id) => (
+            {recipes.map((card) => (
               <div
                 className={`${
-                  recipes.length > 1 ? "col-lg-3 col-md-4 col-6" : ""
+                  recipes.length === 1
+                    ? "col-12"
+                    : recipes.length === 2
+                    ? "col-6"
+                    : "col-6 col-md-4 col-lg-3"
                 } mb-4`}
-                key={id}
+                key={card.id}
               >
                 <RecipeCard {...card} />
               </div>

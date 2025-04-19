@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./FavoriteIcon.css";
 import useAuth from "../../context/AuthContext";
 import useAlert from "../../context/AlertContext";
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const FavoriteIcon = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -14,7 +15,7 @@ const FavoriteIcon = () => {
     // Function to fetch the favorite status of the recipe if a user is logged in
     async function fetchFavoriteStatus() {
       if (user) {
-        const response = await fetch(`/api/favorite/${user.userid}/${id}`);
+        const response = await fetch(`${API}/favorite/${user.userid}/${id}`);
         const json = await response.json();
         if (json) {
           setIsFavorite(true);
@@ -32,7 +33,7 @@ const FavoriteIcon = () => {
     }
     if (isFavorite) {
       // Remove favorite entry if it is already favorited
-      const response = await fetch("/api/favorite", {
+      await fetch(`${API}/favorite`, {
         method: "DELETE",
         body: JSON.stringify({
           userid: user.userid,
@@ -42,12 +43,10 @@ const FavoriteIcon = () => {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      const json = await response.json();
-      console.log(json);
       setIsFavorite(false);
     } else {
       // Add to favorite list
-      const response = await fetch("/api/favorite", {
+      await fetch(`${API}/favorite`, {
         method: "POST",
         body: JSON.stringify({
           userid: user.userid,
@@ -57,8 +56,6 @@ const FavoriteIcon = () => {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-      const json = await response.json();
-      console.log(json);
       setIsFavorite(true);
     }
   }

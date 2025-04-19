@@ -40,7 +40,7 @@ const ExplorePage = () => {
         extractRecipesDetails(json.recipes);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
     setIsLoading(false);
   }

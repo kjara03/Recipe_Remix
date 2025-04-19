@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../context/AuthContext";
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);
@@ -13,7 +14,7 @@ const FavoritePage = () => {
     // Function to fetch favorite recipes by a user
     async function fetchFavorites() {
       if (user) {
-        const response = await fetch(`api/favorite/${user.userid}`);
+        const response = await fetch(`${API}/favorite/${user.userid}`);
         const json = await response.json();
         setFavorites(json.data);
       }

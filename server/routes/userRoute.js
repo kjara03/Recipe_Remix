@@ -34,10 +34,8 @@ router.post("/register", async (req, res) => {
 // Get user based on email
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   try {
     const user = await getUserByEmail(email);
-    console.log(user);
     if (user.error) {
       return res.status(user.status).json({ message: user.error.message });
     }
@@ -83,6 +81,13 @@ router.post("/changepassword", async (req, res) => {
   }
 });
 
+router.get("/authentication", verifyToken, (req, res) => {
+  res.json({
+    message: "Authenticated",
+    user: req.user,
+  });
+});
+
 // Get user based on id
 /*
 router.get("/:id", async (req, res) => {
@@ -100,12 +105,5 @@ router.get("/:id", async (req, res) => {
   }
 });
 */
-
-router.get("/authentication", verifyToken, (req, res) => {
-  res.json({
-    message: "Authenticated",
-    user: req.user,
-  });
-});
 
 export default router;

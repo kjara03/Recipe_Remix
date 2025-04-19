@@ -1,7 +1,7 @@
-import "./PasswordChangeModal.css";
 import { useState } from "react";
 import useAuth from "../../context/AuthContext";
 import useAlert from "../../context/AlertContext";
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const PasswordChangeModal = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -68,7 +68,7 @@ const PasswordChangeModal = () => {
     event.preventDefault();
     if (validatePassword()) {
       try {
-        const response = await fetch("/api/user/changepassword", {
+        const response = await fetch(`${API}/user/changepassword`, {
           method: "POST",
           body: JSON.stringify({
             userid: user.userid,
@@ -90,7 +90,7 @@ const PasswordChangeModal = () => {
         }
       } catch (error) {
         showAlert("danger", error.message, 5000);
-        console.log(error);
+        console.log(error.message);
       }
     }
   }
@@ -119,7 +119,7 @@ const PasswordChangeModal = () => {
           <div className="modal-body">
             <form onSubmit={changePassword}>
               <div className="mb-2">
-                <label htmlFor="signup-email" className="form-label">
+                <label htmlFor="old-password-input" className="form-label">
                   Current password
                 </label>
                 <input
@@ -135,7 +135,7 @@ const PasswordChangeModal = () => {
                 />
               </div>
               <div className="mb-2">
-                <label htmlFor="signup-password" className="form-label">
+                <label htmlFor="new-password-input" className="form-label">
                   New password
                 </label>
                 <input
@@ -151,7 +151,10 @@ const PasswordChangeModal = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="username" className="form-label">
+                <label
+                  htmlFor="secondary-password-input"
+                  className="form-label"
+                >
                   Retype your new password
                 </label>
                 <input
