@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { AuthContext } from "./AuthContext";
 import PropTypes from "prop-types";
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const AuthProvider = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
@@ -14,7 +15,7 @@ const AuthProvider = ({ children }) => {
     // Function to verify jwt token to get the user
     async function getUserData(token) {
       try {
-        const response = await fetch("/api/user/authentication", {
+        const response = await fetch(`${API}/user/authentication`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await response.json();
@@ -29,7 +30,7 @@ const AuthProvider = ({ children }) => {
       } catch (error) {
         setIsAuthenticated(false);
         setUser(null);
-        console.log(error);
+        console.log(error.message);
       }
     }
     if (cookies.jwt_token) {

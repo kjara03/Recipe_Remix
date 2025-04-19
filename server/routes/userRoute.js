@@ -81,6 +81,13 @@ router.post("/changepassword", async (req, res) => {
   }
 });
 
+router.get("/authentication", verifyToken, (req, res) => {
+  res.json({
+    message: "Authenticated",
+    user: req.user,
+  });
+});
+
 // Get user based on id
 /*
 router.get("/:id", async (req, res) => {
@@ -98,12 +105,5 @@ router.get("/:id", async (req, res) => {
   }
 });
 */
-
-router.get("/authentication", verifyToken, (req, res) => {
-  res.json({
-    message: "Authenticated",
-    user: req.user,
-  });
-});
 
 export default router;

@@ -8,10 +8,17 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
-      "/api": {
-        target: "http://localhost:3000", // The target host
+      "/recipe": {
+        target: "http://localhost:3000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+      "/user": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+      "/favorite": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
       },
     },
   },

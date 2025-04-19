@@ -4,6 +4,7 @@ import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const ExplorePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -40,7 +41,7 @@ const ExplorePage = () => {
         extractRecipesDetails(json.recipes);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
     setIsLoading(false);
   }
@@ -62,7 +63,7 @@ const ExplorePage = () => {
 
   // Function to add recipe data to the backend
   async function addRecipe(recipe) {
-    await fetch("http://localhost:3000/recipe", {
+    await fetch(`${API}/recipe`, {
       method: "POST",
       body: JSON.stringify({
         id: recipe.id,
@@ -78,7 +79,7 @@ const ExplorePage = () => {
   return (
     <div className="explore-page-container">
       {recipes.length > 0 ? (
-        <div className="mt-3 mb-3 text-center ">
+        <div className="mt-3 mb-3 text-center">
           <button
             className="btn btn-secondary random-button"
             onClick={fetchRandomRecipes}
@@ -90,7 +91,7 @@ const ExplorePage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-1 text-center">No results found!</h2>
+        <h2 className="mt-4 text-center">No results found!</h2>
       )}
     </div>
   );

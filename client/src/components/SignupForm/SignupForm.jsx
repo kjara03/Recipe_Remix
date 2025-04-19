@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./SignupForm.css";
 import useAlert from "../../context/AlertContext";
 import { Filter } from "bad-words";
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -85,7 +86,7 @@ const SignupForm = () => {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const response = await fetch("/api/user/register", {
+        const response = await fetch(`${API}/user/register`, {
           method: "POST",
           body: JSON.stringify({
             email: email,
@@ -105,7 +106,7 @@ const SignupForm = () => {
         }
       } catch (error) {
         showAlert("danger", error.message, 5000);
-        console.log("An error occurred:", error.message);
+        console.log(error.message);
       }
     }
   }

@@ -7,14 +7,22 @@ const GridLayout = ({ recipes }) => {
     <>
       {recipes && recipes.length > 0 && (
         <div className="container">
-          <div className="row">
-            {recipes.map((card, id) => (
-              // Adjust to different screen size
-              <div className="col-lg-3 col-md-4 col-6 mb-4" key={id}>
+          <div className="row justify-content-center">
+            {recipes.map((card) => (
+              <div
+                className={`${
+                  recipes.length === 1
+                    ? "col-12"
+                    : recipes.length === 2
+                    ? "col-6"
+                    : "col-6 col-md-4 col-lg-3"
+                } mb-4`}
+                key={card.id}
+              >
                 <RecipeCard {...card} />
               </div>
             ))}
-          </div>{" "}
+          </div>
         </div>
       )}
     </>

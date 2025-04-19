@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./LoginModal.css";
 import useAlert from "../../context/AlertContext";
 import { useCookies } from "react-cookie";
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ const LoginModal = () => {
       return;
     }
     try {
-      const response = await fetch("/api/user/login", {
+      const response = await fetch(`${API}/user/login`, {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -56,7 +57,7 @@ const LoginModal = () => {
       showAlert("success", "Account verifed!");
     } catch (error) {
       showAlert("danger", error.message, 5000);
-      console.log("An error occurred:", error.message);
+      console.log(error.message);
     }
   }
 

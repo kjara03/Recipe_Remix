@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import GridLayout from "../../components/GridLayout/GridLayout";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../context/AuthContext";
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);
@@ -13,7 +14,7 @@ const FavoritePage = () => {
     // Function to fetch favorite recipes by a user
     async function fetchFavorites() {
       if (user) {
-        const response = await fetch(`api/favorite/${user.userid}`);
+        const response = await fetch(`${API}/favorite/${user.userid}`);
         const json = await response.json();
         setFavorites(json.data);
       }
@@ -23,7 +24,7 @@ const FavoritePage = () => {
   }, [user]);
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 text-center">
       {isLoading ? (
         <LoadingSpinner />
       ) : user ? (
@@ -34,10 +35,10 @@ const FavoritePage = () => {
             <GridLayout recipes={favorites} />
           </>
         ) : (
-          <h2 className="text-center">You have no favorite recipes yet.</h2>
+          <h2>You have no favorite recipes yet.</h2>
         )
       ) : (
-        <h2 className="text-center">Log in to see your favorite recipes!</h2>
+        <h2>Log in to see your favorite recipes!</h2>
       )}
     </div>
   );

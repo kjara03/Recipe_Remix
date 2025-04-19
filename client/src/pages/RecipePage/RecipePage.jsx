@@ -4,6 +4,7 @@ import RecipeDisplay from "../../components/RecipeDisplay/RecipeDisplay";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
+const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);
@@ -34,7 +35,8 @@ const RecipePage = () => {
         const json = await response.json();
         extractRecipeDetails(json);
       } catch (error) {
-        console.log(error);
+        showAlert("danger", error.message, 5000);
+        console.log(error.message);
       }
       setIsLoading(false);
     }
@@ -44,7 +46,7 @@ const RecipePage = () => {
       let image;
       // The api call doesn't guaranteed an image data is available and when it is not available then retrieve from the database
       if (!data.image) {
-        const response = await fetch(`/api/recipe/${id}`);
+        const response = await fetch(`${API}/recipe/${id}`);
         // If the recipe is empty then an empty string is passed to the recipe
         if (response.status === 404) {
           image = "";
@@ -78,7 +80,7 @@ const RecipePage = () => {
       ) : isLoading ? (
         <LoadingSpinner />
       ) : (
-        <h2 className="mt-5">No results found!</h2>
+        <h2 className="mt-4 text-center">No results found!</h2>
       )}
     </div>
   );

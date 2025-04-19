@@ -1,6 +1,6 @@
 .home-page-background {
   width: 100vw;
-  height: 100vh;
+  min-height: 95vh;
   background: url("../../assets/foodmainpic.png");
   background-size: cover; /* Cover the entire container */
   background-repeat: no-repeat; /* Prevent tiling */

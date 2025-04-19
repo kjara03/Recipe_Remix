@@ -83,7 +83,7 @@ const SearchPage = () => {
 
     // Function to add recipe data to the backend
     async function addRecipe(recipe) {
-      await fetch("http://localhost:3000/recipe", {
+      await fetch(`/recipe`, {
         method: "POST",
         body: JSON.stringify({
           id: recipe.id,
@@ -97,7 +97,7 @@ const SearchPage = () => {
     }
 
     fetchRecipes();
-  }, [ingredients, recipe, showAlert]);
+  }, [ingredients, recipe]);
 
   return (
     <div className="search-page-container">
