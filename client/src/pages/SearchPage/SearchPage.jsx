@@ -6,7 +6,6 @@ import Searchbar from "../../components/SearchBar/Searchbar";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useAlert from "../../context/AlertContext";
 const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
-const API = import.meta.env.VITE_API_BASE_URL || "";
 
 const SearchPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -84,7 +83,7 @@ const SearchPage = () => {
 
     // Function to add recipe data to the backend
     async function addRecipe(recipe) {
-      await fetch(`${API}/recipe`, {
+      await fetch(`/recipe`, {
         method: "POST",
         body: JSON.stringify({
           id: recipe.id,
@@ -98,7 +97,7 @@ const SearchPage = () => {
     }
 
     fetchRecipes();
-  }, [ingredients, recipe, showAlert]);
+  }, [ingredients, recipe]);
 
   return (
     <div className="search-page-container">
