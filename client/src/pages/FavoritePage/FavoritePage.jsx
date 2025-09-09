@@ -14,7 +14,7 @@ const FavoritePage = () => {
     // Function to fetch favorite recipes by a user
     async function fetchFavorites() {
       if (user) {
-        const response = await fetch(`${API}/favorite/${user.userid}`);
+        const response = await fetch(`${API}/api/favorite/${user.userid}`);
         const json = await response.json();
         setFavorites(json.data);
       }

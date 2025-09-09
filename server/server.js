@@ -2,16 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
-import path from "path";
-import { fileURLToPath } from "url";
 import userRouter from "./routes/userRoute.js";
 import favoriteRouter from "./routes/favoriteRoute.js";
 import recipeRouter from "./routes/recipeRoute.js";
 
 dotenv.config(); // Load environment variables
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Get allowed origins from .env
 const allowedOrigins = process.env.ALLOWED_ORIGIN?.split(",") || [];
@@ -59,9 +54,9 @@ app.use(
 );
 
 // Define routes
-app.use("/user", userRouter);
-app.use("/favorite", favoriteRouter);
-app.use("/recipe", recipeRouter);
+app.use("/api/user", userRouter);
+app.use("/api/favorite", favoriteRouter);
+app.use("/api/recipe", recipeRouter);
 
 // 404 handler for unknown API routes
 app.use((_, res) => {
