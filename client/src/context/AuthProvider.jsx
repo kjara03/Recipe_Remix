@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
     // Function to verify jwt token to get the user
     async function getUserData(token) {
       try {
-        const response = await fetch(`${API}/user/authentication`, {
+        const response = await fetch(`${API}/api/user/authentication`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await response.json();

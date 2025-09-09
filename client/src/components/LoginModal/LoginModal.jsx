@@ -29,7 +29,7 @@ const LoginModal = () => {
       return;
     }
     try {
-      const response = await fetch(`${API}/user/login`, {
+      const response = await fetch(`${API}/api/user/login`, {
         method: "POST",
         body: JSON.stringify({
           email: email,

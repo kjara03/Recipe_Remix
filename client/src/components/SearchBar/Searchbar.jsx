@@ -226,7 +226,7 @@ const Searchbar = () => {
                 isSearchable={true}
                 placeholder="Select ingredients"
                 menuPlacement="auto"
-                maxMenuHeight="150"
+                maxMenuHeight="60vh"
               />
             )}
           </div>

@@ -15,7 +15,9 @@ const FavoriteIcon = () => {
     // Function to fetch the favorite status of the recipe if a user is logged in
     async function fetchFavoriteStatus() {
       if (user) {
-        const response = await fetch(`${API}/favorite/${user.userid}/${id}`);
+        const response = await fetch(
+          `${API}/api/favorite/${user.userid}/${id}`
+        );
         const json = await response.json();
         if (json) {
           setIsFavorite(true);
@@ -33,7 +35,7 @@ const FavoriteIcon = () => {
     }
     if (isFavorite) {
       // Remove favorite entry if it is already favorited
-      await fetch(`${API}/favorite`, {
+      await fetch(`${API}/api/favorite`, {
         method: "DELETE",
         body: JSON.stringify({
           userid: user.userid,
@@ -46,7 +48,7 @@ const FavoriteIcon = () => {
       setIsFavorite(false);
     } else {
       // Add to favorite list
-      await fetch(`${API}/favorite`, {
+      await fetch(`${API}/api/favorite`, {
         method: "POST",
         body: JSON.stringify({
           userid: user.userid,

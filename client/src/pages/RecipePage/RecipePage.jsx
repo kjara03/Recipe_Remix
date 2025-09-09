@@ -46,7 +46,7 @@ const RecipePage = () => {
       let image;
       // The api call doesn't guaranteed an image data is available and when it is not available then retrieve from the database
       if (!data.image) {
-        const response = await fetch(`${API}/recipe/${id}`);
+        const response = await fetch(`${API}/api/recipe/${id}`);
         // If the recipe is empty then an empty string is passed to the recipe
         if (response.status === 404) {
           image = "";
@@ -55,6 +55,13 @@ const RecipePage = () => {
           image = json.data.image;
         }
       }
+
+      addRecipe({
+        id: id,
+        image: data.image || image,
+        name: data.title,
+      });
+
       setRecipe({
         cookTime: data.readyInMinutes,
         cuisineType: data.cuisines,
@@ -67,6 +74,21 @@ const RecipePage = () => {
         nutrients: data.nutrition,
         servings: data.servings,
         url: data.sourceUrl,
+      });
+    }
+
+    // Function to add recipe data to the backend
+    async function addRecipe(recipe) {
+      await fetch(`/api/recipe`, {
+        method: "POST",
+        body: JSON.stringify({
+          id: recipe.id,
+          image: recipe.image,
+          name: recipe.name,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
       });
     }
 

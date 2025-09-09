@@ -88,22 +88,4 @@ router.get("/authentication", verifyToken, (req, res) => {
   });
 });
 
-// Get user based on id
-/*
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await getUserById(id);
-    if (user.error) {
-      return res.status(user.error).json({ message: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Failed to retrieve user", error: error.message });
-  }
-});
-*/
-
 export default router;

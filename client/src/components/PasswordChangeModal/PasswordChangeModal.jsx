@@ -68,7 +68,7 @@ const PasswordChangeModal = () => {
     event.preventDefault();
     if (validatePassword()) {
       try {
-        const response = await fetch(`${API}/user/changepassword`, {
+        const response = await fetch(`${API}/api/user/changepassword`, {
           method: "POST",
           body: JSON.stringify({
             userid: user.userid,

@@ -86,7 +86,7 @@ const SignupForm = () => {
     event.preventDefault();
     if (validateForm()) {
       try {
-        const response = await fetch(`${API}/user/register`, {
+        const response = await fetch(`${API}/api/user/register`, {
           method: "POST",
           body: JSON.stringify({
             email: email,

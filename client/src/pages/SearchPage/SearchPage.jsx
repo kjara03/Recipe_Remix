@@ -76,27 +76,10 @@ const SearchPage = () => {
         };
       });
       setRecipes(recipesData);
-      recipesData.forEach((recipe) => {
-        addRecipe(recipe);
-      });
-    }
-
-    // Function to add recipe data to the backend
-    async function addRecipe(recipe) {
-      await fetch(`/recipe`, {
-        method: "POST",
-        body: JSON.stringify({
-          id: recipe.id,
-          image: recipe.image,
-          name: recipe.name,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
     }
 
     fetchRecipes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients, recipe]);
 
   return (

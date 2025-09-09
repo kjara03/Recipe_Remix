@@ -63,7 +63,7 @@ const ExplorePage = () => {
 
   // Function to add recipe data to the backend
   async function addRecipe(recipe) {
-    await fetch(`${API}/recipe`, {
+    await fetch(`${API}/api/recipe`, {
       method: "POST",
       body: JSON.stringify({
         id: recipe.id,
